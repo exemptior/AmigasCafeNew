@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Amigas Cafe — Whittier's Favorite Mexican Breakfast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Fraunces:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terra: #C4622D; --clay: #E8834A; --gold: #F2B84B;
+    --cream: #FDF6EC; --warm-white: #FEFAF4; --dark: #1C1008;
+    --bark: #3D2010; --blush: #F5DFC5; --tile-red: #D4573A;
+    --cobalt: #1E3A8A; --cobalt-light: #3B5FBB; --talavera: #2B4DAA;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--dark); overflow-x: hidden; cursor: none; }
+
+  /* ── RETRO-FUTURISTIC CURSOR ── */
+  #cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    width: 0; height: 0;
+    transform: translate(-4px, -4px);
+  }
+  #cursor svg {
+    width: 32px; height: 38px;
+    filter: drop-shadow(0 0 6px rgba(242,184,75,0.7)) drop-shadow(0 0 12px rgba(242,184,75,0.35));
+    overflow: visible;
+  }
+
+
+
+
+  /* ── PRESS RIPPLE ── */
+  .press-ripple {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99997;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, rgba(242,184,75,0.55) 0%, rgba(196,98,45,0.25) 50%, transparent 75%);
+    animation: pressRipple 0.38s ease-out forwards;
+  }
+  @keyframes pressRipple {
+    0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+    60%  { transform: translate(-50%,-50%) scale(1.8); opacity: 0.7; }
+    100% { transform: translate(-50%,-50%) scale(2.4); opacity: 0; }
+  }
+
+  /* ── HOVER LIFT ── */
+  a, button, .menu-card, .review-card, .pkg-card, .service-item, .stat-card, .menu-item-row, .cal-day {
+    transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s ease, background 0.25s ease, border-color 0.25s ease, color 0.2s ease !important;
+  }
+  a:hover, button:hover { transform: translateY(-3px); }
+  .menu-card:hover { transform: translateY(-6px) !important; box-shadow: 0 24px 60px rgba(196,98,45,0.18) !important; }
+  .review-card:hover { transform: translateY(-5px) !important; }
+  .pkg-card:hover { transform: translateY(-4px) !important; background: rgba(43,77,170,0.2) !important; border-color: rgba(59,95,187,0.4) !important; }
+  .stat-card:hover { transform: translateY(-4px) !important; }
+  .menu-item-row:hover { transform: translateY(-2px) !important; background: rgba(196,98,45,0.04) !important; }
+  .cal-day:hover { transform: translateY(-3px) !important; box-shadow: 0 8px 24px rgba(196,98,45,0.2) !important; }
+
+  /* ── DECO SYMBOL ── */
+  .deco-symbol {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--terra), var(--gold));
+    border-radius: 50%;
+    font-size: 0.75rem; font-weight: 900; color: white;
+    flex-shrink: 0; letter-spacing: -0.5px;
+  }
+  .deco-symbol.sm { width: 22px; height: 22px; font-size: 0.6rem; }
+  .deco-symbol.cobalt { background: linear-gradient(135deg, var(--cobalt), var(--cobalt-light)); }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px 5%; background: rgba(253,246,236,1); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(196,98,45,0.15); gap: 1rem; }
+  .nav-left { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--terra); letter-spacing: -0.5px; white-space: nowrap; }
+  .nav-logo span { color: var(--terra); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--bark); text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase; position: relative; padding-bottom: 3px; }
+  .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--terra); border-radius: 2px; transition: width 0.25s ease; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a:hover { color: var(--terra); transform: none !important; }
+  .nav-cta { background: var(--terra) !important; color: white !important; padding: 9px 18px; border-radius: 50px; font-weight: 500 !important; font-size: 0.8rem !important; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--tile-red) !important; }
+
+  /* Hamburger — hidden on desktop */
+  .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; flex-shrink: 0; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--terra); border-radius: 2px; transition: all 0.3s ease; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(253,246,236,0.98); backdrop-filter: blur(20px); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); text-decoration: none; }
+  .mobile-menu a:hover { color: var(--terra); transform: none !important; }
+  .mobile-menu .mobile-cta { background: var(--terra) !important; color: white !important; padding: 14px 36px; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 1rem !important; font-weight: 500; margin-top: 0.5rem; }
+
+  /* ── HERO ── */
+  #hero { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; padding-top: 80px; }
+  /* hero-bg.jpg: save at 1920×1080px, JPEG 70% quality (~150-200KB) */
+  .hero-bg-img { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(6px) brightness(0.35) saturate(0.8); transform: scale(1.08); }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(28,16,8,0.85) 0%, rgba(61,32,16,0.65) 50%, rgba(28,16,8,0.75) 100%), radial-gradient(ellipse 50% 70% at 70% 50%, rgba(196,98,45,0.3) 0%, transparent 65%); }
+  .hero-content { position: relative; z-index: 2; padding: 0 5%; max-width: 680px; animation: fadeUp 0.9s ease both; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(196,98,45,0.2); border: 1px solid rgba(232,131,74,0.5); color: var(--clay); font-size: 0.72rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 50px; margin-bottom: 1.5rem; animation: fadeUp 0.9s 0.1s ease both; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem,7vw,5.5rem); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 1.5rem; animation: fadeUp 0.9s 0.2s ease both; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 300; color: rgba(253,246,236,0.72); line-height: 1.75; margin-bottom: 2.5rem; max-width: 480px; animation: fadeUp 0.9s 0.3s ease both; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.9s 0.4s ease both; }
+  .btn-primary { background: var(--terra); color: white; padding: 16px 36px; border-radius: 50px; font-size: 1rem; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 8px 30px rgba(196,98,45,0.45); }
+  .btn-primary:hover { background: var(--clay) !important; box-shadow: 0 14px 40px rgba(196,98,45,0.55) !important; }
+  .btn-secondary { background: transparent; color: var(--cream); padding: 16px 32px; border-radius: 50px; font-size: 1rem; text-decoration: none; border: 1.5px solid rgba(253,246,236,0.3); }
+  .btn-secondary:hover { border-color: var(--gold) !important; color: var(--gold) !important; }
+  .hero-stats { position: absolute; right: 5%; top: 0; z-index: 2; display: flex; flex-direction: column; gap: 0.8rem; animation: fadeLeft 0.9s 0.5s ease both; }
+  .stat-card { background: rgba(253,246,236,0.07); border: 1px solid rgba(253,246,236,0.13); backdrop-filter: blur(10px); border-radius: 16px; padding: 18px 24px; text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 900; color: var(--gold); display: block; }
+  .stat-label { font-size: 0.72rem; color: rgba(253,246,236,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(253,246,236,0.35); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; animation: fadeUp 1s 1s ease both; }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, rgba(253,246,236,0.4), transparent); animation: scrollPulse 2s infinite; }
+
+  /* ── LEAF DIVIDER ── */
+  .leaf-divider { height: 60px; overflow: hidden; position: relative; }
+  .leaf-divider svg { width: 100%; height: 100%; display: block; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 100px 5%; }
+  .section-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--terra); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 10px; }
+  .section-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--terra); display: inline-block; }
+  .section-eyebrow.light { color: var(--gold); }
+  .section-eyebrow.light::before { background: var(--gold); }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; color: var(--dark); margin-bottom: 0.75rem; }
+  .section-subtitle { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 300; color: #6B5B4E; line-height: 1.7; max-width: 500px; }
+  .section-title.light { color: var(--cream); }
+  .section-subtitle.light { color: rgba(253,246,236,0.55); }
+
+  /* ── WEEKLY SPECIALS CALENDAR ── */
+  .specials-calendar { margin-bottom: 3rem; }
+  .specials-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+  .specials-cal-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--dark); }
+  .specials-cal-sub { font-size: 0.82rem; color: #8A7A6A; font-style: italic; }
+  .specials-morning-badge { background: linear-gradient(135deg, var(--cobalt), var(--talavera)); color: white; font-size: 0.75rem; font-weight: 500; padding: 6px 16px; border-radius: 50px; letter-spacing: 0.5px; white-space: nowrap; }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .cal-day {
+    background: white; border-radius: 16px;
+    border: 1.5px solid rgba(196,98,45,0.12);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .cal-day.weekend { border-color: rgba(43,77,170,0.2); }
+  .cal-day-header {
+    padding: 10px 12px 8px;
+    background: linear-gradient(135deg, rgba(196,98,45,0.08), rgba(242,184,75,0.1));
+    border-bottom: 1px solid rgba(196,98,45,0.1);
+  }
+  .cal-day.weekend .cal-day-header { background: linear-gradient(135deg, rgba(43,77,170,0.08), rgba(59,95,187,0.1)); border-bottom-color: rgba(43,77,170,0.1); }
+  .cal-day-name { font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: var(--terra); }
+  .cal-day.weekend .cal-day-name { color: var(--cobalt-light); }
+  .cal-day-body { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+  .cal-special-name { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 700; color: var(--dark); line-height: 1.3; margin-bottom: 6px; }
+  .cal-special-detail { font-size: 0.72rem; color: #8A7A6A; line-height: 1.4; }
+  .cal-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+
+  .breakfast-specials-row {
+    background: linear-gradient(135deg, var(--cobalt) 0%, var(--talavera) 100%);
+    border-radius: 16px; padding: 20px 28px;
+    margin-top: 12px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .bsp-label { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--gold); white-space: nowrap; }
+  .bsp-items { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .bsp-pill { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 5px 14px; font-size: 0.78rem; color: rgba(255,255,255,0.9); white-space: nowrap; }
+  .bsp-price { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: var(--gold); white-space: nowrap; }
+
+  /* ── MENU ── */
+  #menu { background: var(--cream); position: relative; overflow: hidden; }
+  .menu-header { max-width: 680px; margin-bottom: 2.5rem; }
+  .menu-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .tab-btn { padding: 9px 20px; border-radius: 50px; border: 1.5px solid rgba(196,98,45,0.25); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--bark); cursor: none; white-space: nowrap; }
+  .tab-btn.active, .tab-btn:hover { background: var(--terra) !important; border-color: var(--terra) !important; color: white !important; }
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .menu-category { margin-bottom: 2.5rem; }
+  .menu-category-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--dark); margin-bottom: 0.3rem; display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 2px solid rgba(196,98,45,0.15); }
+  .menu-category-subtitle { font-size: 0.8rem; color: #8A7A6A; font-style: italic; margin-bottom: 1.2rem; margin-top: 4px; }
+  .menu-items-list { display: flex; flex-direction: column; gap: 0; }
+  .menu-item-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 10px; gap: 1rem; }
+  .menu-item-row:nth-child(even) { background: rgba(196,98,45,0.03); }
+  .menu-item-info { flex: 1; }
+  .menu-item-name { font-size: 0.92rem; font-weight: 500; color: var(--dark); }
+  .menu-item-desc { font-size: 0.78rem; color: #8A7A6A; margin-top: 2px; line-height: 1.4; }
+  .menu-item-price { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--terra); white-space: nowrap; flex-shrink: 0; }
+  .menu-item-badge { font-size: 0.65rem; font-weight: 500; padding: 3px 9px; border-radius: 50px; margin-left: 8px; vertical-align: middle; }
+  .badge-fav { background: rgba(242,184,75,0.2); color: #8A6010; }
+  .menu-items-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+  .menu-cta-wrap { text-align: center; margin-top: 2.5rem; }
+
+  /* ── REVIEWS ── */
+  #reviews { background: var(--dark); position: relative; overflow: hidden; }
+  #reviews::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 0% 100%, rgba(196,98,45,0.2) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 100% 0%, rgba(43,77,170,0.15) 0%, transparent 60%); }
+  .reviews-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 2rem; position: relative; z-index: 2; }
+  .score-num { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; color: var(--gold); line-height: 1; display: block; }
+  .score-stars { font-size: 1.3rem; margin: 4px 0; }
+  .score-label { font-size: 0.78rem; color: rgba(253,246,236,0.4); letter-spacing: 1px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; position: relative; z-index: 2; }
+  .review-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 26px; }
+  .review-card:hover { background: rgba(43,77,170,0.12) !important; border-color: rgba(59,95,187,0.3) !important; }
+  .review-stars { font-size: 1.1rem; margin-bottom: 14px; letter-spacing: 2px; }
+  .review-text { font-family: 'Fraunces', serif; font-size: 0.97rem; font-weight: 300; font-style: italic; color: rgba(253,246,236,0.8); line-height: 1.7; margin-bottom: 18px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--terra), var(--gold)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: white; flex-shrink: 0; }
+  .reviewer-avatar.blue-av { background: linear-gradient(135deg, var(--cobalt), var(--cobalt-light)); }
+  .reviewer-name { font-size: 0.875rem; font-weight: 500; color: var(--cream); margin-bottom: 2px; }
+  .reviewer-meta { font-size: 0.72rem; color: rgba(253,246,236,0.32); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--warm-white); position: relative; overflow: hidden; }
+  .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-img-stack { position: relative; height: 500px; }
+  .about-card-big { position: absolute; top: 0; left: 0; width: 78%; height: 360px; border-radius: 24px; background: linear-gradient(135deg, #C4622D 0%, #E8834A 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 60px rgba(196,98,45,0.35); font-size: 7rem; }
+  .about-card-small { position: absolute; bottom: 0; right: 0; width: 56%; height: 230px; border-radius: 20px; background: linear-gradient(135deg, #1E3A8A 0%, #2B4DAA 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 40px rgba(43,77,170,0.35); font-size: 5rem; }
+  .about-quote-card { position: absolute; top: 46%; left: 55%; transform: translateX(-50%); background: white; border-radius: 16px; padding: 16px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); width: 190px; z-index: 2; border-top: 3px solid var(--cobalt); }
+  .about-quote-text { font-family: 'Fraunces', serif; font-size: 0.82rem; font-style: italic; color: var(--dark); line-height: 1.5; margin-bottom: 8px; }
+  .about-quote-attr { font-size: 0.7rem; color: var(--cobalt-light); font-weight: 500; }
+  .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+  .value-item { display: flex; align-items: flex-start; gap: 12px; }
+  .value-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terra); margin-top: 6px; flex-shrink: 0; }
+  .value-dot.blue { background: var(--cobalt-light); }
+  .value-text { font-size: 0.875rem; color: #5A4A3A; line-height: 1.5; }
+  .value-text strong { color: var(--dark); font-weight: 600; }
+  .about-info { margin-top: 2rem; padding: 24px; background: var(--cream); border-radius: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border: 1px solid rgba(43,77,170,0.1); }
+  .info-item { display: flex; align-items: center; gap: 10px; }
+  .info-icon-wrap { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, rgba(196,98,45,0.1), rgba(242,184,75,0.15)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .info-icon-wrap svg { width: 15px; height: 15px; fill: var(--terra); }
+  .info-label { font-size: 0.72rem; color: #9A8A7A; text-transform: uppercase; letter-spacing: 0.5px; }
+  .info-val { font-size: 0.875rem; font-weight: 500; color: var(--dark); }
+
+  /* ── CATERING (COMBINED) ── */
+  #catering { background: var(--dark); position: relative; overflow: hidden; }
+  .catering-morph {
+    position: absolute; width: 700px; height: 700px;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    background: radial-gradient(ellipse at center, rgba(196,98,45,0.1) 0%, rgba(43,77,170,0.07) 50%, transparent 72%);
+    animation: morphBlob 10s ease-in-out infinite;
+    z-index: 0; pointer-events: none;
+  }
+  .catering-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; position: relative; z-index: 2; }
+  .catering-desc { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 300; color: rgba(253,246,236,0.6); line-height: 1.8; margin-top: 1.5rem; max-width: 440px; }
+  .catering-packages { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+  .pkg-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px 22px; display: flex; align-items: center; gap: 16px; }
+  .pkg-icon-wrap { width: 46px; height: 46px; border-radius: 12px; background: linear-gradient(135deg, var(--terra), var(--clay)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pkg-icon-wrap.cobalt { background: linear-gradient(135deg, var(--cobalt), var(--cobalt-light)); }
+  .pkg-icon-wrap svg { width: 22px; height: 22px; fill: white; }
+  .pkg-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+  .pkg-desc { font-size: 0.8rem; color: rgba(253,246,236,0.48); line-height: 1.4; }
+  .catering-phone-btn { display: inline-flex; align-items: center; gap: 12px; margin-top: 2rem; background: var(--terra); color: white; padding: 15px 32px; border-radius: 50px; font-size: 1rem; font-weight: 500; text-decoration: none; box-shadow: 0 6px 24px rgba(196,98,45,0.35); }
+  .catering-phone-btn:hover { background: var(--clay) !important; }
+  .phone-circle { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .phone-circle svg { width: 14px; height: 14px; fill: white; }
+  .catering-form-wrap { background: white; border-radius: 28px; padding: 38px; border-top: 4px solid var(--cobalt); }
+  .form-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--dark); margin-bottom: 0.3rem; }
+  .form-sub { font-size: 0.875rem; color: #7A6A5A; margin-bottom: 1.8rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.78rem; font-weight: 500; color: var(--bark); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 1.5px solid rgba(196,98,45,0.2); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--dark); background: var(--warm-white); outline: none; cursor: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--cobalt); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit { width: 100%; padding: 14px; background: var(--terra); color: white; border: none; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: none; margin-top: 0.5rem; box-shadow: 0 6px 20px rgba(196,98,45,0.3); }
+  .form-submit:hover { background: var(--tile-red) !important; transform: translateY(-3px) !important; }
+
+  /* ── FOOTER ── */
+  footer { background: #120C05; padding: 60px 5% 28px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--clay); margin-bottom: 1rem; display: block; }
+  .footer-logo-text span { color: var(--clay); }
+  .footer-tagline { font-family: 'Fraunces', serif; font-size: 0.92rem; font-style: italic; line-height: 1.6; margin-bottom: 1.2rem; color: rgba(253,246,236,0.5); }
+  .footer-contact-line { font-size: 0.82rem; margin-bottom: 6px; color: rgba(253,246,236,0.4); }
+  .footer-contact-line a { color: rgba(253,246,236,0.55); text-decoration: none; }
+  .footer-contact-line a:hover { color: var(--gold) !important; }
+  .footer-col-title { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; color: rgba(253,246,236,0.28); margin-bottom: 1.1rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a { font-size: 0.875rem; color: rgba(253,246,236,0.45); text-decoration: none; }
+  .footer-links a:hover { color: var(--gold) !important; }
+  .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin-bottom: 1.5rem; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: rgba(253,246,236,0.3); font-size: 0.78rem; }
+  .footer-heart { color: var(--terra); }
+  .hours-grid { display: flex; flex-direction: column; gap: 4px; }
+  .hours-row { font-size: 0.8rem; color: rgba(253,246,236,0.4); display: flex; justify-content: space-between; gap: 1rem; }
+  .hours-row span:last-child { color: rgba(253,246,236,0.6); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeLeft { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+  @keyframes morphBlob {
+    0%,100%{border-radius:40% 60% 70% 30%/40% 50% 60% 50%}
+    25%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}
+    50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}
+    75%{border-radius:60% 40% 50% 50%/30% 60% 40% 60%}
+  }
+  .fade-in-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1100px) { .cal-grid { grid-template-columns: repeat(3,1fr); } }
+
+  /* ── TABLET ── */
+  @media(max-width:900px) {
+    nav { padding: 10px 4%; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    /* Hero */
+    #hero { padding-top: 70px; min-height: 100svh; }
+    .hero-content { padding: 0 6%; max-width: 100%; }
+    .hero-title { font-size: clamp(2.4rem, 8vw, 3.8rem); }
+    .hero-sub { font-size: 1rem; }
+    .hero-btns { gap: 0.75rem; }
+    .btn-primary, .btn-secondary { padding: 13px 24px; font-size: 0.9rem; }
+    .hero-stats { display: none; }
+    #hoursPill { display: none; }
+
+    /* Sections */
+    section { padding: 70px 5%; }
+    .section-title { font-size: clamp(2rem, 6vw, 3rem); }
+
+    /* Calendar */
+    .cal-grid { grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .breakfast-specials-row { flex-direction: column; gap: 1rem; text-align: center; }
+
+    /* Menu tabs */
+    .menu-tabs { gap: 0.4rem; }
+    .tab-btn { padding: 8px 14px; font-size: 0.78rem; }
+    .menu-items-2col { grid-template-columns: 1fr; }
+
+    /* About */
+    .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .about-img-stack { height: 300px; }
+    .about-card-big { height: 240px; font-size: 4.5rem; }
+    .about-card-small { height: 160px; font-size: 3rem; }
+    .about-values { grid-template-columns: 1fr; }
+    .about-info { grid-template-columns: 1fr; }
+
+    /* Catering */
+    .catering-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .catering-form-wrap { padding: 28px 20px; }
+
+    /* Footer */
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── MOBILE / iPHONE ── */
+  @media(max-width:600px) {
+    /* Nav */
+    nav { padding: 10px 4%; padding-left: max(4%, env(safe-area-inset-left)); padding-right: max(4%, env(safe-area-inset-right)); gap: 0.5rem; }
+    .nav-left { gap: 8px; }
+    .nav-logo { font-size: 1.1rem; }
+    .nav-cta { padding: 8px 12px !important; font-size: 0.72rem !important; }
+    .hamburger { display: flex; }
+
+    /* Hero — full viewport with safe areas */
+    #hero { padding-top: 70px; min-height: 100svh; padding-bottom: env(safe-area-inset-bottom); }
+    .hero-content { padding: 0 5%; padding-left: max(5%, env(safe-area-inset-left)); padding-right: max(5%, env(safe-area-inset-right)); }
+    .hero-title { font-size: clamp(2rem, 9vw, 3rem); }
+    .hero-sub { font-size: 0.92rem; max-width: 100%; }
+    .hero-btns { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .btn-primary, .btn-secondary { width: 100%; text-align: center; justify-content: center; padding: 15px 20px; font-size: 0.95rem; border-radius: 14px; }
+    .hero-badge { font-size: 0.62rem; letter-spacing: 1px; padding: 5px 12px; }
+    .hero-scroll { display: none; }
+
+    /* Specials calendar */
+    .specials-cal-header { flex-direction: column; align-items: flex-start; }
+    .cal-grid { grid-template-columns: repeat(2,1fr); gap: 8px; }
+    .cal-icon svg { width: 22px; height: 22px; }
+    .cal-special-name { font-size: 0.8rem; }
+    .cal-special-detail { font-size: 0.68rem; }
+    .breakfast-specials-row { padding: 18px 20px; }
+    .bsp-items { flex-direction: column; gap: 0.5rem; }
+
+    /* Menu */
+    .menu-tabs { gap: 0.35rem; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .menu-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { padding: 8px 14px; font-size: 0.74rem; white-space: nowrap; flex-shrink: 0; }
+    .menu-category-title { font-size: 1.25rem; }
+    .menu-item-row { padding: 12px 10px; }
+    .menu-item-name { font-size: 0.85rem; }
+    .menu-item-price { font-size: 0.88rem; }
+    .menu-items-2col { grid-template-columns: 1fr; }
+
+    /* Reviews */
+    .reviews-header { flex-direction: column; gap: 1.5rem; }
+    .score-num { font-size: 3.5rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .review-card { padding: 20px; }
+
+    /* About */
+    .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .about-img-stack { height: 260px; }
+    .about-card-big { width: 72%; height: 200px; font-size: 3.5rem; }
+    .about-card-small { width: 50%; height: 140px; font-size: 2.5rem; }
+    .about-quote-card { width: 160px; padding: 12px 14px; }
+    .about-values { grid-template-columns: 1fr; gap: 0.75rem; }
+    .about-info { grid-template-columns: 1fr; gap: 0.75rem; }
+
+    /* Catering */
+    .catering-packages { gap: 0.75rem; }
+    .catering-form-wrap { padding: 22px 16px; border-radius: 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    .pkg-card { padding: 14px 16px; }
+    .catering-grid { gap: 2rem; }
+    .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
+
+    /* Footer */
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-logo-text { font-size: 1.4rem; }
+    .footer-tagline { font-size: 0.85rem; }
+    footer { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+
+    /* Cursor off on touch */
+    body { cursor: auto; }
+    #cursor { display: none; }
+  }
+
+  /* ── SMALL MOBILE (iPhone SE / Mini) ── */
+  @media(max-width:380px) {
+    .cal-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 1.9rem; }
+    .section-title { font-size: 1.8rem; }
+    .menu-tabs { gap: 0.25rem; }
+    .tab-btn { padding: 6px 10px; font-size: 0.7rem; }
+    .btn-primary, .btn-secondary { padding: 13px 16px; font-size: 0.88rem; }
+    .nav-logo { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- RETRO-FUTURISTIC CURSOR -->
+<div id="cursor">
+  <svg viewBox="0 0 32 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Yellow glow background blob -->
+    <ellipse cx="13" cy="18" rx="11" ry="13" fill="rgba(242,184,75,0.22)" rx="11"/>
+    <!-- Main arrow shape — chunky, rounded -->
+    <path d="
+      M 4 4
+      L 4 28
+      Q 4 31 7 31
+      L 12 24
+      L 17 32
+      Q 18.5 35 21 33.5
+      Q 23.5 32 22 29
+      L 17 21
+      L 24 21
+      Q 28 21 28 17.5
+      Q 28 14 24 13
+      L 7 4
+      Q 5.5 3 4 4
+      Z
+    " fill="#C4622D" stroke="#F2B84B" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Inner highlight -->
+    <path d="M 8 8 L 8 22 L 13 16 L 22 16 L 8 8 Z" fill="rgba(242,184,75,0.3)"/>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-logo">Amigas<span> Cafe</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#menu">Our Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#catering">Catering</a></li>
+  </ul>
+  <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" class="nav-cta">Order Now</a>
+</nav>
+
+<!-- MOBILE MENU DRAWER -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu" onclick="toggleMenu()">Our Menu</a>
+  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+  <a href="#about" onclick="toggleMenu()">Our Story</a>
+  <a href="#catering" onclick="toggleMenu()">Catering</a>
+  <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" class="mobile-cta" onclick="toggleMenu()">Order Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-img" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">&#10022; Now Serving Whittier, CA &nbsp;&middot;&nbsp; Est. 2025</div>
+    <h1 class="hero-title">Breakfast<br><em>como en casa.</em></h1>
+    <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:1.2rem;flex-wrap:wrap;">
+      <span style="background:rgba(196,98,45,0.25);border:1px solid rgba(232,131,74,0.5);color:var(--clay);font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:50px;">Breakfast</span>
+      <span style="color:rgba(253,246,236,0.3);font-size:0.7rem;">&#10022;</span>
+      <span style="background:rgba(196,98,45,0.25);border:1px solid rgba(232,131,74,0.5);color:var(--clay);font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:50px;">Lunch</span>
+      <span style="color:rgba(253,246,236,0.3);font-size:0.7rem;">&#10022;</span>
+      <span style="background:rgba(196,98,45,0.25);border:1px solid rgba(232,131,74,0.5);color:var(--clay);font-size:0.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:50px;">Dinner</span>
+    </div>
+    <p class="hero-sub">Authentic Mexican Cooking Made With Heart. Chilaquiles, Enchiladas, Caf&eacute; De Olla &mdash; Your Neighborhood Spot In Whittier.</p>
+    <div class="hero-btns">
+      <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" class="btn-primary">Order on DoorDash</a>
+      <a href="#menu" class="btn-secondary">View Menu</a>
+    </div>
+  </div>
+  <div id="hoursPill" style="position:absolute;top:0;right:5%;z-index:2;animation:fadeLeft 0.9s 0.1s ease both;">
+    <div style="background:rgba(253,246,236,0.07);border:1px solid rgba(253,246,236,0.18);backdrop-filter:blur(10px);border-radius:50px;padding:8px 22px;display:flex;align-items:center;gap:14px;white-space:nowrap;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(242,184,75,0.9)"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+      <span style="font-size:0.78rem;color:rgba(253,246,236,0.6);letter-spacing:0.5px;">Mon&ndash;Fri 8am&ndash;7pm</span>
+      <span style="width:1px;height:16px;background:rgba(253,246,236,0.2);display:inline-block;"></span>
+      <span style="font-size:0.78rem;color:rgba(253,246,236,0.6);letter-spacing:0.5px;">Sat&ndash;Sun 8am&ndash;8pm</span>
+    </div>
+  </div>
+  <div class="hero-stats">
+
+    <div class="stat-card"><span class="stat-num">4.8&#9733;</span><span class="stat-label">Google Rating</span></div>
+
+    <!-- Reviews -->
+    <div class="stat-card" style="text-align:center;">
+      <span class="stat-num" style="display:flex;justify-content:center;align-items:center;padding:4px 0;">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Speech bubble body -->
+          <rect x="5" y="5" width="36" height="27" rx="8" fill="rgba(242,184,75,0.12)" stroke="#F2B84B" stroke-width="2"/>
+          <!-- Bubble tail -->
+          <path d="M13 32 L9 43 L21 35" fill="rgba(242,184,75,0.12)" stroke="#F2B84B" stroke-width="2" stroke-linejoin="round"/>
+          <!-- Three dots inside -->
+          <circle cx="15" cy="18.5" r="3" fill="#F2B84B" opacity="0.9"/>
+          <circle cx="23" cy="18.5" r="3" fill="#F2B84B" opacity="0.9"/>
+          <circle cx="31" cy="18.5" r="3" fill="#F2B84B" opacity="0.9"/>
+          <!-- 99+ text below -->
+          <text x="33" y="48" font-size="9" fill="rgba(242,184,75,0.65)" font-family="sans-serif" font-weight="700">99+</text>
+        </svg>
+      </span>
+      <span class="stat-label">Reviews</span>
+    </div>
+
+    <!-- Homemade -->
+    <div class="stat-card" style="text-align:center;">
+      <span class="stat-num" style="display:flex;justify-content:center;align-items:center;padding:4px 0;">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Steam wisps — centered over pan -->
+          <path d="M19 17 Q17 13 19 9 Q21 5 19 2" stroke="#F2B84B" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.65"/>
+          <path d="M26 16 Q24 12 26 8 Q28 4 26 2" stroke="#F2B84B" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.5"/>
+          <path d="M33 17 Q31 13 33 9 Q35 5 33 2" stroke="#F2B84B" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.65"/>
+          <!-- Pan body -->
+          <ellipse cx="24" cy="36" rx="17" ry="10" fill="rgba(242,184,75,0.12)" stroke="#F2B84B" stroke-width="2"/>
+          <!-- Pan rim highlight -->
+          <ellipse cx="24" cy="35" rx="13" ry="7.5" fill="rgba(232,131,74,0.15)" stroke="#E8834A" stroke-width="1" opacity="0.55"/>
+          <!-- Pan handle -->
+          <rect x="40" y="33.8" width="10" height="4" rx="2" fill="#F2B84B" opacity="0.8"/>
+        </svg>
+      </span>
+      <span class="stat-label">Homemade</span>
+    </div>
+
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- LEAF DIVIDER -->
+<div style="width:100%;height:80px;overflow:hidden;position:relative;">
+  <div style="height:80px;background-image:url('dividersect.webp');background-repeat:repeat-x;background-size:auto 80px;background-position:0 center;animation:splitterScroll 30s linear infinite;"></div>
+</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header">
+    <div class="section-eyebrow"><span class="deco-symbol sm">&#10022;</span> Our Menu</div>
+    <h2 class="section-title">Made Fresh,<br>Every Morning</h2>
+    <p class="section-subtitle">From classic Mexican breakfast plates to hearty entr&eacute;es &mdash; everything made with homemade love in Whittier.</p>
+  </div>
+
+  <!-- WEEKLY SPECIALS CALENDAR -->
+  <div class="specials-calendar fade-in-up">
+    <div class="specials-cal-header">
+      <div>
+        <div class="specials-cal-title">Weekly Specials</div>
+        <div class="specials-cal-sub">Something special every day of the week</div>
+      </div>
+    </div>
+    <!-- Tile accent strip -->
+    <div style="display:flex;gap:6px;margin-bottom:1rem;opacity:0.18;">
+      <div style="height:6px;flex:1;border-radius:3px;background:#C4622D;"></div>
+      <div style="height:6px;flex:1;border-radius:3px;background:#F2B84B;"></div>
+      <div style="height:6px;flex:1;border-radius:3px;background:#1E3A8A;"></div>
+      <div style="height:6px;flex:1;border-radius:3px;background:#C4622D;"></div>
+      <div style="height:6px;flex:1;border-radius:3px;background:#F2B84B;"></div>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-day fade-in-up">
+        <div class="cal-day-header"><div class="cal-day-name">Monday</div></div>
+        <div class="cal-day-body">
+          <span class="cal-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" fill="rgba(196,98,45,0.12)" stroke="#C4622D" stroke-width="1.5"/><ellipse cx="14" cy="16" rx="6" ry="4" fill="rgba(196,98,45,0.15)" stroke="#C4622D" stroke-width="1.2"/><path d="M10 13 Q14 10 18 13" stroke="#C4622D" stroke-width="1.2" fill="none"/><circle cx="11" cy="12" r="1.5" fill="#C4622D"/><circle cx="17" cy="12" r="1.5" fill="#C4622D"/></svg>
+          </span>
+          <div class="cal-special-name">Mole Monday</div>
+          <div class="cal-special-detail">Chicken Mole Plate or Mole Enchiladas</div>
+        </div>
+      </div>
+      <div class="cal-day fade-in-up">
+        <div class="cal-day-header"><div class="cal-day-name">Tuesday</div></div>
+        <div class="cal-day-body">
+          <span class="cal-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 20 Q8 12 14 14 Q20 16 24 8" stroke="#C4622D" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M6 20 Q10 13 14 15 Q18 17 22 10" stroke="#F2B84B" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.6"/><rect x="3" y="20" width="22" height="3" rx="1.5" fill="rgba(196,98,45,0.15)" stroke="#C4622D" stroke-width="1"/></svg>
+          </span>
+          <div class="cal-special-name">Taco Tuesday</div>
+          <div class="cal-special-detail">Soft, hard, shredded beef, chicken or carnitas</div>
+        </div>
+      </div>
+      <div class="cal-day fade-in-up">
+        <div class="cal-day-header"><div class="cal-day-name">Wednesday</div></div>
+        <div class="cal-day-body">
+          <span class="cal-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="5" y="10" width="18" height="10" rx="5" fill="rgba(196,98,45,0.12)" stroke="#C4622D" stroke-width="1.5"/><path d="M8 10 Q14 4 20 10" stroke="#C4622D" stroke-width="1.5" fill="none"/><line x1="9" y1="14" x2="19" y2="14" stroke="#C4622D" stroke-width="1" opacity="0.5"/><line x1="9" y1="17" x2="19" y2="17" stroke="#C4622D" stroke-width="1" opacity="0.3"/></svg>
+          </span>
+          <div class="cal-special-name">Wet Burrito Wednesday</div>
+          <div class="cal-special-detail">Smothered burritos with housemade sauce</div>
+        </div>
+      </div>
+      <div class="cal-day fade-in-up">
+        <div class="cal-day-header"><div class="cal-day-name">Thursday</div></div>
+        <div class="cal-day-body">
+          <span class="cal-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="10" width="20" height="12" rx="3" fill="rgba(196,98,45,0.12)" stroke="#C4622D" stroke-width="1.5"/><ellipse cx="14" cy="10" rx="7" ry="3" fill="rgba(242,184,75,0.2)" stroke="#F2B84B" stroke-width="1.2"/><line x1="7" y1="14" x2="21" y2="14" stroke="#C4622D" stroke-width="1" opacity="0.4"/><line x1="7" y1="17" x2="21" y2="17" stroke="#C4622D" stroke-width="1" opacity="0.3"/></svg>
+          </span>
+          <div class="cal-special-name">Torta Thursday</div>
+          <div class="cal-special-detail">Grilled Chicken or Carnitas — they're big!</div>
+        </div>
+      </div>
+      <div class="cal-day fade-in-up">
+        <div class="cal-day-header"><div class="cal-day-name">Friday</div></div>
+        <div class="cal-day-body">
+          <span class="cal-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="5" y="14" width="18" height="9" rx="2" fill="rgba(196,98,45,0.12)" stroke="#C4622D" stroke-width="1.5"/><path d="M8 14 L10 6 L14 10 L18 6 L20 14" stroke="#C4622D" stroke-width="1.5" fill="rgba(242,184,75,0.1)" stroke-linejoin="round"/><line x1="9" y1="18" x2="19" y2="18" stroke="#C4622D" stroke-width="1" opacity="0.4"/></svg>
+          </span>
+          <div class="cal-special-name">Flauta Friday</div>
+          <div class="cal-special-detail">Crispy flautas with guac, sour cream &amp; chipotle ranch</div>
+        </div>
+      </div>
+    </div>
+    <!-- Mon-Fri Breakfast Special — prominent -->
+    <div class="breakfast-specials-row" style="background:linear-gradient(135deg,var(--terra) 0%,var(--clay) 60%,var(--gold) 100%);border:none;position:relative;overflow:hidden;">
+      <!-- Tile pattern accent -->
+      <div style="position:absolute;right:0;top:0;bottom:0;width:120px;opacity:0.08;background-image:url('dividersect.webp');background-size:auto 100%;background-repeat:repeat-x;"></div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px;">Mon &ndash; Fri &nbsp;&middot;&nbsp; 8am &ndash; 11am</div>
+        <div class="bsp-label" style="color:white;font-size:1.2rem;">Breakfast Special</div>
+      </div>
+      <div class="bsp-items" style="position:relative;z-index:1;">
+        <span class="bsp-pill" style="background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.3);">Pancake, 2 Sausage &amp; Eggs</span>
+        <span class="bsp-pill" style="background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.3);">Mini Chilaquiles with Beans</span>
+        <span class="bsp-pill" style="background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.3);">Egg, Potato with Toast</span>
+      </div>
+      <div style="position:relative;z-index:1;text-align:center;">
+        <div style="font-size:2rem;font-family:'Playfair Display',serif;font-weight:900;color:white;line-height:1;">$9.95</div>
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.7);letter-spacing:1px;margin-top:2px;">per plate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('appetizers',this)">Starters</button>
+    <button class="tab-btn" onclick="showTab('breakfast',this)">Breakfast</button>
+    <button class="tab-btn" onclick="showTab('specialties',this)">Specialties</button>
+    <button class="tab-btn" onclick="showTab('entrees',this)">Entr&eacute;es</button>
+    <button class="tab-btn" onclick="showTab('burritos',this)">Burritos</button>
+    <button class="tab-btn" onclick="showTab('tacos',this)">Tacos &amp; Ma&iacute;z</button>
+    <button class="tab-btn" onclick="showTab('salads',this)">Soups &amp; More</button>
+    <button class="tab-btn" onclick="showTab('drinks',this)">Drinks</button>
+  </div>
+
+  <!-- STARTERS -->
+  <div id="tab-appetizers" class="menu-panel active">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Appetizers</div>
+      <div class="menu-category-subtitle">Great starters while you browse</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Cheesy Bean Dip</div><div class="menu-item-desc">Beans, melted cheese, chips</div></div><div class="menu-item-price">$6.99</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Guacamole <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Fresh avocado, lime, chips</div></div><div class="menu-item-price">$10.99</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chicken Strips &amp; Fries</div><div class="menu-item-desc">Crispy chicken strips with fries</div></div><div class="menu-item-price">$12.99</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Crispy Taquitos</div><div class="menu-item-desc">2 taquitos with guacamole &mdash; choice of beef or chicken</div></div><div class="menu-item-price">$5.99</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Saucy Nachos</div><div class="menu-item-desc">Beans, cheese, sauces, guac, sour cream, jalape&ntilde;os (+$3 meat)</div></div><div class="menu-item-price">$13.99</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Quesadilla</div><div class="menu-item-desc">Cheese tortilla with guac &amp; sour cream (protein optional)</div></div><div class="menu-item-price">$11.99</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">French Fries</div><div class="menu-item-desc">Basket of fries</div></div><div class="menu-item-price">$6.99</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREAKFAST -->
+  <div id="tab-breakfast" class="menu-panel">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Classic Breakfast</div>
+      <div class="menu-category-subtitle">Served with beans, potatoes, toast</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Bacon &amp; Eggs</div><div class="menu-item-desc">3 strips of crispy bacon, 2 eggs your way, served with beans, potatoes &amp; toast</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Sausage &amp; Eggs</div><div class="menu-item-desc">4 sausage links, 2 eggs your way, served with beans, potatoes &amp; toast</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Ribeye &amp; Eggs</div><div class="menu-item-desc">8 oz ribeye steak, 2 eggs your way, served with beans, potatoes &amp; toast</div></div><div class="menu-item-price">$24.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Ham &amp; Eggs</div><div class="menu-item-desc">Ham steak, 2 eggs your way, served with beans, potatoes &amp; toast</div></div><div class="menu-item-price">$15.95</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Griddle</div>
+      <div class="menu-category-subtitle">Add $6 combo &mdash; includes 2 eggs + bacon or sausage</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Short Stack</div><div class="menu-item-desc">2 fluffy pancakes (+$6 combo: add 2 eggs &amp; bacon or sausage)</div></div><div class="menu-item-price">$9.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Cinnamon Apple Pancakes</div><div class="menu-item-desc">Pancakes topped with warm cinnamon-spiced apples</div></div><div class="menu-item-price">$13.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Strawberry Pancakes</div><div class="menu-item-desc">Pancakes topped with fresh strawberries &amp; whipped cream</div></div><div class="menu-item-price">$13.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Belgian Waffle <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Classic golden Belgian waffle (+$6 combo: add 2 eggs &amp; bacon or sausage)</div></div><div class="menu-item-price">$10.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chicken &amp; Waffles</div><div class="menu-item-desc">Golden Belgian waffle topped with crispy fried chicken strips</div></div><div class="menu-item-price">$16.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">French Toast w/ Berries</div><div class="menu-item-desc">Thick-cut French toast with fresh mixed berries &amp; whipped cream</div></div><div class="menu-item-price">$13.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">French Toast</div><div class="menu-item-desc">Classic French toast dusted with powdered sugar</div></div><div class="menu-item-price">$11.95</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Omelets &amp; Scrambles</div>
+      <div class="menu-category-subtitle">Served with beans, potatoes, toast</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chile Relleno Omelet</div><div class="menu-item-desc">Fluffy omelet filled with chile relleno, cheese &amp; sauce</div></div><div class="menu-item-price">$15.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Pork Chile Verde Omelet</div><div class="menu-item-desc">Tender pork chile verde folded into a cheesy omelet</div></div><div class="menu-item-price">$15.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Ham &amp; Cheese Scramble</div><div class="menu-item-desc">Fluffy scrambled eggs with diced ham &amp; melted cheese</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Mushroom Omelet</div><div class="menu-item-desc">Sautéed mushrooms with melted cheese in a fluffy omelet</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Denver Scramble</div><div class="menu-item-desc">Eggs scrambled with ham, bell peppers, onions &amp; cheese</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">B.A.C. Omelet <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Bacon, Avocado, Cheese — a crowd-pleasing classic</div></div><div class="menu-item-price">$15.95</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Breakfast Burritos</div>
+      <div class="menu-category-subtitle">Base: eggs, cheese, potatoes, beans</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Breakfast Burrito</div><div class="menu-item-desc">Eggs, cheese, potatoes &amp; beans wrapped in a flour tortilla</div></div><div class="menu-item-price">$12.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Pork Chile Verde &amp; Egg</div><div class="menu-item-desc">Pork verde, scrambled eggs, cheese &amp; potatoes in a warm tortilla</div></div><div class="menu-item-price">$13.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Machaca <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Shredded beef scrambled with eggs, bell peppers &amp; onions</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chorizo &amp; Egg</div><div class="menu-item-desc">Spicy chorizo, scrambled eggs, cheese &amp; potatoes</div></div><div class="menu-item-price">$13.95</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Breakfast Sammies</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Breakfast Torta</div><div class="menu-item-desc">Eggs, beans, cheese, lettuce, tomato &amp; avocado on a toasted roll</div></div><div class="menu-item-price">$12.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Ham Egg &amp; Cheddar</div><div class="menu-item-desc">Sliced ham, fried egg &amp; melted cheddar on toasted bread</div></div><div class="menu-item-price">$11.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Jean's Bacon &amp; Egg</div><div class="menu-item-desc">Crispy bacon, fried egg &amp; melted cheese — a house classic</div></div><div class="menu-item-price">$11.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Amigas Avocado Toast</div><div class="menu-item-desc">Toasted bread topped with smashed avocado, tomato &amp; seasoning</div></div><div class="menu-item-price">$10.95</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECIALTIES -->
+  <div id="tab-specialties" class="menu-panel">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Specialties de la Casa</div>
+      <div class="menu-category-subtitle">Served with beans and potatoes &nbsp;&middot;&nbsp; Sauces: red, green, or mole</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Ribeye Chilaquiles <span class="menu-item-badge badge-fav">House Special</span></div><div class="menu-item-desc">Premium ribeye over crispy chips with your choice of sauce</div></div><div class="menu-item-price">$24.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chilaquiles <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Crispy chips in red, green, or mole sauce (+$3 meat)</div></div><div class="menu-item-price">$15.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">3 Enchiladas &amp; Eggs</div><div class="menu-item-desc">Three enchiladas with eggs (+$3 meat)</div></div><div class="menu-item-price">$15.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Huevos Rancheros</div><div class="menu-item-desc">Sunny-side eggs with ranchero sauce (+$3 chile verde)</div></div><div class="menu-item-price">$13.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chorizo &amp; Eggs</div><div class="menu-item-desc">Spicy chorizo scrambled with eggs</div></div><div class="menu-item-price">$15.95</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENTREES -->
+  <div id="tab-entrees" class="menu-panel">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Platos (Entr&eacute;es)</div>
+      <div class="menu-category-subtitle">All served with beans, rice, salsa, and tortillas</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Picadillo Plate</div><div class="menu-item-desc">Ground beef with potatoes in broth</div></div><div class="menu-item-price">$18.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Combo Plate</div><div class="menu-item-desc">Choose 2 or 3: enchilada, taco, or chile relleno</div></div><div class="menu-item-price">$16.95 / $19.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chicken Mole <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Chicken with rich housemade mole sauce</div></div><div class="menu-item-price">$15.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Fajitas</div><div class="menu-item-desc">Peppers, onions &mdash; chicken, steak, shrimp, or combo</div></div><div class="menu-item-price">$19.99&ndash;$25.99</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Ribeye Plate</div><div class="menu-item-desc">8 oz ribeye steak</div></div><div class="menu-item-price">$23.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Enchiladas Plate</div><div class="menu-item-desc">Red, green, or mole sauce (+$3 meat)</div></div><div class="menu-item-price">$15.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Pork Chile Verde</div><div class="menu-item-desc">Pork with potatoes in verde sauce</div></div><div class="menu-item-price">$19.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Beef Birria <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Birria beef with cons&oacute;mm&eacute;</div></div><div class="menu-item-price">$19.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Taquito Plate</div><div class="menu-item-desc">3 taquitos with guac and sour cream</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Flauta Plate</div><div class="menu-item-desc">Flautas with guac, sour cream, chipotle ranch</div></div><div class="menu-item-price">$15.95</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BURRITOS -->
+  <div id="tab-burritos" class="menu-panel">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Burritos</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Burrito</div><div class="menu-item-desc">Rice, beans, pico, cheese, sour cream + choice protein</div></div><div class="menu-item-price">$12.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Smothered Chile Verde <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Pork chile verde burrito with cheese sauce</div></div><div class="menu-item-price">$16.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Bean &amp; Cheese</div><div class="menu-item-desc">Classic beans and cheese</div></div><div class="menu-item-price">$9.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chile Relleno Burrito</div><div class="menu-item-desc">Relleno, beans, rice, cheese</div></div><div class="menu-item-price">$13.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Veggie Burrito</div><div class="menu-item-desc">Rice, beans, veggies, guac, cheese</div></div><div class="menu-item-price">$12.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Shrimp Burrito</div><div class="menu-item-desc">Shrimp, cabbage, pico, sauces</div></div><div class="menu-item-price">$16.95</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TACOS & MAIZ -->
+  <div id="tab-tacos" class="menu-panel">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Tacos</div>
+      <div class="menu-category-subtitle">Toppings: cilantro, onion, lettuce, tomato, cabbage, cheese, chipotle sauce, guacamole</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Tacos a la Plancha</div><div class="menu-item-desc">Hard shell taco with cheese, lettuce &amp; tomato</div></div><div class="menu-item-price">$4.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Rajas Taco</div><div class="menu-item-desc">Corn tortilla with roasted chile strips, cream &amp; cheese</div></div><div class="menu-item-price">$5.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Soft Taco</div><div class="menu-item-desc">Soft flour tortilla with your choice of meat, cilantro &amp; onion</div></div><div class="menu-item-price">$4.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chile Relleno Taco</div><div class="menu-item-desc">Handmade corn tortilla with beans, chile relleno &amp; rajas</div></div><div class="menu-item-price">$8.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Shrimp Taco</div><div class="menu-item-desc">Tortilla with shrimp, cabbage, pico de gallo &amp; house sauces</div></div><div class="menu-item-price">$5.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Handmade Corn Tortilla Taco</div><div class="menu-item-desc">Handmade tortilla with grilled cheese, guac &amp; chipotle</div></div><div class="menu-item-price">$6.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Birria Taco <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Slow-cooked birria beef, cilantro &amp; onion on a handmade tortilla</div></div><div class="menu-item-price">$6.95</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Ma&iacute;z Favorites</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Gordita</div><div class="menu-item-desc">Masa pocket stuffed with beans, cheese, lettuce, tomato + protein</div></div><div class="menu-item-price">$10.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Mulita</div><div class="menu-item-desc">Handmade tortilla with cheese &amp; guac + protein</div></div><div class="menu-item-price">$10.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Sope</div><div class="menu-item-desc">Thick corn base with beans, meat, cheese, lettuce, tomato</div></div><div class="menu-item-price">$6.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Olvera Taquitos</div><div class="menu-item-desc">3 taquitos with guac, green sauce, cabbage, cotija</div></div><div class="menu-item-price">$10.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Three Potato Tacos</div><div class="menu-item-desc">Crispy potato tacos topped with cotija, guac, sour cream</div></div><div class="menu-item-price">$10.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Quesabirria <span class="menu-item-badge badge-fav">Fan Fave</span></div><div class="menu-item-desc">Birria taco with cheese + cons&oacute;mm&eacute; for dipping</div></div><div class="menu-item-price">$6.95</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOUPS & MORE -->
+  <div id="tab-salads" class="menu-panel">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Salads &amp; Bowls</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Chicken Salad</div><div class="menu-item-desc">Grilled chicken over lettuce with tomato, cheese, avocado &amp; ranch</div></div><div class="menu-item-price">$16.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Cajun Shrimp Salad</div><div class="menu-item-desc">Cajun-spiced shrimp over lettuce, cabbage, peppers &amp; chipotle dressing</div></div><div class="menu-item-price">$18.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Bowl</div><div class="menu-item-desc">Cabbage, beans, rice, cheese, guac &amp; tomato + choice of protein</div></div><div class="menu-item-price">$16.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Cali Bowl</div><div class="menu-item-desc">Cabbage, beans de la olla, rice, veggies, guac &amp; pico (+$3 chicken / +$4 steak)</div></div><div class="menu-item-price">$16.95</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Soups</div>
+      <div class="menu-category-subtitle">Menudo &amp; Posole served daily</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Menudo <span class="menu-item-badge badge-fav">Daily</span></div><div class="menu-item-desc">Traditional Mexican tripe soup</div></div><div class="menu-item-price">$13.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Posole <span class="menu-item-badge badge-fav">Daily</span></div><div class="menu-item-desc">Hearty hominy stew</div></div><div class="menu-item-price">$13.95</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Sammies</div>
+      <div class="menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Grilled Chicken Melt</div><div class="menu-item-desc">Grilled chicken with melted cheese, lettuce &amp; tomato on toasted bread</div></div><div class="menu-item-price">$14.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Ribeye Sandwich</div><div class="menu-item-desc">Tender ribeye with grilled onions &amp; melted cheese on a toasted roll</div></div><div class="menu-item-price">$19.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Torta</div><div class="menu-item-desc">Beans, cheese, lettuce, tomato, avocado + meat</div></div><div class="menu-item-price">$13.95</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRINKS -->
+  <div id="tab-drinks" class="menu-panel">
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Sodas &amp; Classic Drinks</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Soft Drinks <span class="menu-item-badge badge-fav">Free Refills</span></div><div class="menu-item-desc">Fountain sodas — Coke, Diet Coke, Sprite &amp; more</div></div><div class="menu-item-price">$3.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Coke Bottle</div><div class="menu-item-desc">Classic Mexican Coke in a glass bottle — no refills</div></div><div class="menu-item-price">$4.50</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Topo Chico</div><div class="menu-item-desc">Sparkling mineral water — no refills</div></div><div class="menu-item-price">$4.50</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Teas</div>
+      <div class="menu-category-subtitle">Flavored teas — no refills. Plain iced tea — free refills.</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Fresh Brewed Iced Tea <span class="menu-item-badge badge-fav">Free Refills</span></div><div class="menu-item-desc">House-brewed black iced tea, lightly sweetened or unsweetened</div></div><div class="menu-item-price">$3.75</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Peach Tea</div><div class="menu-item-desc">House-made peach-infused iced tea — no refills</div></div><div class="menu-item-price">$4.25</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Raspberry Tea</div><div class="menu-item-desc">House-made raspberry-infused iced tea — no refills</div></div><div class="menu-item-price">$4.25</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Watermelon Tea</div><div class="menu-item-desc">House-made watermelon-infused iced tea — no refills</div></div><div class="menu-item-price">$4.25</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Lemonades</div>
+      <div class="menu-category-subtitle">All lemonades — no refills.</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Strawberry Lemonade</div><div class="menu-item-desc">House-made lemonade with fresh strawberry — no refills</div></div><div class="menu-item-price">$4.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Peach Lemonade</div><div class="menu-item-desc">House-made lemonade with a sweet peach twist — no refills</div></div><div class="menu-item-price">$4.25</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Raspberry Lemonade</div><div class="menu-item-desc">House-made lemonade with fresh raspberry — no refills</div></div><div class="menu-item-price">$4.25</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Watermelon Lemonade</div><div class="menu-item-desc">House-made lemonade with fresh watermelon — no refills</div></div><div class="menu-item-price">$4.25</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Arnold Palmer</div><div class="menu-item-desc">Half iced tea, half lemonade — no refills</div></div><div class="menu-item-price">$4.25</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Coffee &amp; Lattes</div>
+      <div class="menu-category-subtitle">Hot drip coffee &amp; Café de Olla — free refills. Lattes — no refills.</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Coffee <span class="menu-item-badge badge-fav">Free Refills</span></div><div class="menu-item-desc">Hot drip coffee — free refills all morning</div></div><div class="menu-item-price">$3.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Caf&eacute; de Olla <span class="menu-item-badge badge-fav">Signature</span></div><div class="menu-item-desc">Clay-pot coffee with cinnamon &amp; piloncillo — free refills</div></div><div class="menu-item-price">$3.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Regular Latte</div><div class="menu-item-desc">Espresso with steamed milk</div></div><div class="menu-item-price">$5.50</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Vanilla Latte</div><div class="menu-item-desc">Espresso with steamed milk and house vanilla syrup</div></div><div class="menu-item-price">$5.95</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Horchata Latte <span class="menu-item-badge badge-fav">Signature</span></div><div class="menu-item-desc">Espresso blended with our house-made horchata</div></div><div class="menu-item-price">$6.25</div></div>
+      </div>
+    </div>
+    <div class="menu-category fade-in-up">
+      <div class="menu-category-title">Horchata</div>
+      <div class="menu-items-2col menu-items-list">
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Horchata</div><div class="menu-item-desc">House-made rice milk with cinnamon &amp; vanilla — no refills</div></div><div class="menu-item-price">$4.50</div></div>
+        <div class="menu-item-row"><div class="menu-item-info"><div class="menu-item-name">Strawberry Horchata</div><div class="menu-item-desc">House-made horchata blended with fresh strawberry — no refills</div></div><div class="menu-item-price">$4.95</div></div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- LEAF DIVIDER -->
+<div style="width:100%;height:80px;overflow:hidden;position:relative;">
+  <div style="height:80px;background-image:url('dividersect.webp');background-repeat:repeat-x;background-size:auto 80px;background-position:0 center;animation:splitterScroll 30s linear infinite;"></div>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-header">
+    <div>
+      <div class="section-eyebrow light"><span class="deco-symbol sm" style="background:linear-gradient(135deg,var(--gold),var(--clay))">&#9733;</span> Customer Love</div>
+      <h2 class="section-title light">What the Neighborhood Says</h2>
+      <p class="section-subtitle light">Real reviews from real locals who keep coming back.</p>
+    </div>
+    <div><span class="score-num">4.8⭐</span><div class="score-stars">⭐⭐⭐⭐⭐</div><div class="score-label">Google Reviews</div></div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card fade-in-up"><div class="review-stars">⭐⭐⭐⭐⭐</div><p class="review-text">"The chilaquiles are absolutely amazing &mdash; crispy chips, the most flavorful salsa, and the portions are generous. This place feels like home."</p><div class="reviewer"><div class="reviewer-avatar">MR</div><div><div class="reviewer-name">Maria R.</div><div class="reviewer-meta">Local Guide &middot; Whittier, CA</div></div></div></div>
+    <div class="review-card fade-in-up"><div class="review-stars">⭐⭐⭐⭐⭐</div><p class="review-text">"Found my new breakfast spot! The caf&eacute; de olla is exactly how my grandma used to make it. The staff is so welcoming &mdash; definitely coming back."</p><div class="reviewer"><div class="reviewer-avatar blue-av">JG</div><div><div class="reviewer-name">Jose G.</div><div class="reviewer-meta">Whittier Regular</div></div></div></div>
+    <div class="review-card fade-in-up"><div class="review-stars">⭐⭐⭐⭐⭐</div><p class="review-text">"Everything tastes homemade and fresh. The enchiladas melted in my mouth. The homestyle cooking reminds me of growing up. Absolutely love this place."</p><div class="reviewer"><div class="reviewer-avatar">AL</div><div><div class="reviewer-name">Ana L.</div><div class="reviewer-meta">Family of 4 &middot; Repeat Customer</div></div></div></div>
+    <div class="review-card fade-in-up"><div class="review-stars">⭐⭐⭐⭐⭐</div><p class="review-text">"This little caf&eacute; replaced the old spot and it's honestly even better. Cozy, affordable, delicious. The owners really care about the community."</p><div class="reviewer"><div class="reviewer-avatar blue-av">DC</div><div><div class="reviewer-name">David C.</div><div class="reviewer-meta">Verified Google Review</div></div></div></div>
+    <div class="review-card fade-in-up"><div class="review-stars">⭐⭐⭐⭐⭐</div><p class="review-text">"I ordered for pickup on DoorDash and everything arrived perfectly. The food was still hot and tasted fresh. I'll definitely be using delivery regularly."</p><div class="reviewer"><div class="reviewer-avatar">SV</div><div><div class="reviewer-name">Sofia V.</div><div class="reviewer-meta">DoorDash Customer</div></div></div></div>
+    <div class="review-card fade-in-up"><div class="review-stars">⭐⭐⭐⭐⭐</div><p class="review-text">"Ordered catering for our office meeting and everyone LOVED it. Professional, timely, and the food was authentic and delicious. Will book again!"</p><div class="reviewer"><div class="reviewer-avatar blue-av">PN</div><div><div class="reviewer-name">Patricia N.</div><div class="reviewer-meta">Catering Client</div></div></div></div>
+  </div>
+</section>
+
+<!-- LEAF DIVIDER -->
+<div style="width:100%;height:80px;overflow:hidden;position:relative;">
+  <div style="height:80px;background-image:url('dividersect.webp');background-repeat:repeat-x;background-size:auto 80px;background-position:0 center;animation:splitterScroll 30s linear infinite;"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-img-stack fade-in-up">
+      <div class="about-card-big" style="background:linear-gradient(135deg,#C4622D 0%,#E8834A 100%);"><img src="IMG_3909.webp" alt="Amigas Cafe grand opening team" width="800" height="600" style="width:100%;height:100%;object-fit:cover;border-radius:24px;" loading="lazy" decoding="async"></div>
+      <div class="about-card-small" style="background:linear-gradient(135deg,#1E3A8A 0%,#2B4DAA 100%);"><img src="IMG_3906.webp" alt="Amigas Cafe ribbon cutting" width="600" height="800" style="width:100%;height:100%;object-fit:cover;border-radius:20px;" loading="lazy" decoding="async"></div>
+      <div class="about-quote-card">
+        <p class="about-quote-text">"Where every guest feels like family."</p>
+        <div class="about-quote-attr">&mdash; The Amigas Team</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-eyebrow"><span class="deco-symbol sm">&#10022;</span> Our Story</div>
+      <h2 class="section-title">More Than a Caf&eacute; &mdash;<br>It's Community</h2>
+      <p class="section-subtitle">Born from a love of authentic Mexican cooking and a belief that neighborhood restaurants should feel like home.</p>
+      <p style="font-size:0.92rem;color:#5A4A3A;line-height:1.8;margin-top:1.5rem;">Nestled inside Whittier Plaza Offices on Whittier Blvd, we opened our doors to bring something Whittier had been missing: a warm, locally-owned spot where the food tastes homemade, the service is genuine, and every customer leaves feeling welcome.</p>
+      <div class="about-values">
+        <div class="value-item fade-in-up"><div class="value-dot"></div><div class="value-text"><strong>Authentic Recipes</strong> &mdash; Traditional dishes passed down and perfected.</div></div>
+        <div class="value-item fade-in-up"><div class="value-dot blue"></div><div class="value-text"><strong>Friendly Service</strong> &mdash; We know your name and your order.</div></div>
+        <div class="value-item fade-in-up"><div class="value-dot"></div><div class="value-text"><strong>Community First</strong> &mdash; Giving back to the Whittier neighborhood.</div></div>
+        <div class="value-item fade-in-up"><div class="value-dot blue"></div><div class="value-text"><strong>Affordable for All</strong> &mdash; Great food shouldn't cost a fortune.</div></div>
+      </div>
+      <div class="about-info fade-in-up" style="grid-column:1/-1;justify-items:center;text-align:center;">
+        <div class="info-item" style="justify-content:center;grid-column:1/-1;">
+          <div class="info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
+          <div><div class="info-label">Hours</div><div class="info-val">Mon&ndash;Fri: 8am&ndash;7pm &nbsp;&middot;&nbsp; Sat&ndash;Sun: 8am&ndash;8pm</div></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+          <div><div class="info-label">Location</div><div class="info-val"><a href="https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603" target="_blank" style="color:var(--cobalt-light);text-decoration:none;">16220 Whittier Blvd, CA 90603</a></div></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+          <div><div class="info-label">Phone</div><div class="info-val"><a href="tel:5623155105" style="color:var(--cobalt-light);text-decoration:none;">(562) 315-5105</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAF DIVIDER -->
+<div style="width:100%;height:80px;overflow:hidden;position:relative;">
+  <div style="height:80px;background-image:url('dividersect.webp');background-repeat:repeat-x;background-size:auto 80px;background-position:0 center;animation:splitterScroll 30s linear infinite;"></div>
+</div>
+
+<!-- CATERING -->
+<section id="catering">
+  <div class="catering-morph"></div>
+  <div class="catering-grid">
+    <div>
+      <div class="section-eyebrow light"><span class="deco-symbol sm" style="background:linear-gradient(135deg,var(--gold),var(--clay))">&#10022;</span> Catering</div>
+      <h2 class="section-title light">Let's Make Your<br>Event Unforgettable</h2>
+      <p class="catering-desc">From intimate family breakfasts to large corporate gatherings &mdash; we bring the authentic flavors and warmth of Amigas Cafe to you.</p>
+      <div class="catering-packages">
+
+        <!-- Breakfast package: sunny-side up SVG icon -->
+        <div class="pkg-card fade-in-up">
+          <div class="pkg-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <!-- Pan outline -->
+              <ellipse cx="11" cy="15" rx="9" ry="6" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.2" fill="none"/>
+              <!-- Egg white -->
+              <ellipse cx="11" cy="15" rx="7" ry="4.5" fill="white" opacity="0.9"/>
+              <!-- Yolk -->
+              <circle cx="11" cy="14.5" r="2.5" fill="#F2B84B"/>
+              <circle cx="11" cy="14.5" r="1.4" fill="#E8834A" opacity="0.8"/>
+              <!-- Pan handle -->
+              <rect x="19" y="14" width="4" height="2" rx="1" fill="white" opacity="0.7"/>
+            </svg>
+          </div>
+          <div><div class="pkg-name">Breakfast Package</div><p class="pkg-desc">Chilaquiles bar, egg stations, aguas frescas &amp; caf&eacute; de olla.</p></div>
+        </div>
+
+        <!-- Fiesta package: drinks/cocktail SVG icon -->
+        <div class="pkg-card fade-in-up">
+          <div class="pkg-icon-wrap cobalt">
+            <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <!-- Glass body -->
+              <path d="M6 3 L10 13 L10 19 L8 19 L8 21 L16 21 L16 19 L14 19 L14 13 L18 3 Z" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
+              <path d="M7.5 3 L9.8 10 L14.2 10 L16.5 3 Z" fill="white" opacity="0.7"/>
+              <!-- Straw -->
+              <line x1="13" y1="10" x2="17" y2="3" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+              <!-- Fruit slice hint -->
+              <circle cx="17" cy="3" r="1.5" fill="white" opacity="0.6"/>
+            </svg>
+          </div>
+          <div><div class="pkg-name">Fiesta Package</div><p class="pkg-desc">Full spread with mains, drinks, and desserts for any celebration.</p></div>
+        </div>
+
+        <!-- Corporate package -->
+        <div class="pkg-card fade-in-up">
+          <div class="pkg-icon-wrap cobalt">
+            <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6h-2.18c.07-.44.18-.88.18-1.38C18 2.05 15.95 0 13.38 0c-1.3 0-2.45.52-3.38 1.3L12 3.55l2-2.25C14.45 1.08 15 1 15.38 1c2 0 2.62 1.62 2.62 3.62 0 1.38-.5 2.21-1.38 3.38H10c-1.1 0-2 .9-2 2v1H4c-1.1 0-2 .9-2 2v9h2v-9h4v9h2V10h8l2 2v10h2V12c0-1.1-.9-2-2-2h-.18l-1.82-2V6z" opacity="0"/>
+              <rect x="3" y="8" width="18" height="13" rx="2" fill="none" stroke="white" stroke-width="1.3"/>
+              <path d="M8 8 V6 Q8 3 12 3 Q16 3 16 6 V8" fill="none" stroke="white" stroke-width="1.3"/>
+              <line x1="3" y1="13" x2="21" y2="13" stroke="white" stroke-width="1" opacity="0.5"/>
+              <circle cx="12" cy="13" r="1.5" fill="white" opacity="0.8"/>
+            </svg>
+          </div>
+          <div><div class="pkg-name">Corporate Package</div><p class="pkg-desc">Box lunches, buffet-style breakfast, or family-style platters for your team.</p></div>
+        </div>
+
+      </div>
+      <a href="tel:5623155105" class="catering-phone-btn">
+        <div class="phone-circle">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </div>
+        Call Us: (562) 315-5105
+      </a>
+    </div>
+    <div class="catering-form-wrap fade-in-up">
+      <div class="form-title">Get a Free Quote</div>
+      <p class="form-sub">We'll respond within 24 hours to discuss your event details.</p>
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Maria"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Garcia"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="maria@email.com"></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(562) 555-0000"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Event Date</label><input type="date"></div>
+        <div class="form-group"><label>Guest Count</label><select><option>10&ndash;25 guests</option><option>25&ndash;50 guests</option><option>50&ndash;100 guests</option><option>100+ guests</option></select></div>
+      </div>
+      <div class="form-group"><label>Event Type</label><select><option>Corporate Breakfast / Lunch</option><option>Birthday Party</option><option>Quincea&ntilde;era</option><option>Wedding / Anniversary</option><option>School / Community Event</option><option>Other</option></select></div>
+      <div class="form-group"><label>Tell us about your event</label><textarea rows="3" placeholder="Any special requests, dietary needs, or details..."></textarea></div>
+      <button class="form-submit" onclick="handleFormSubmit(this)">Send Catering Request</button>
+    </div>
+  </div>
+</section>
+
+<!-- LEAF DIVIDER -->
+<div style="width:100%;height:80px;overflow:hidden;position:relative;">
+  <div style="height:80px;background-image:url('dividersect.webp');background-repeat:repeat-x;background-size:auto 80px;background-position:0 center;animation:splitterScroll 30s linear infinite;"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <span class="footer-logo-text">Amigas<span> Cafe</span></span>
+      <p class="footer-tagline">"Where Every Meal Tastes Like It Was Made From Home."</p>
+      <div class="footer-contact-line">&#9679; <a href="https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603" target="_blank" style="color:rgba(253,246,236,0.55);text-decoration:none;">16220 Whittier Blvd, Whittier, CA 90603</a></div>
+      <div class="footer-contact-line">&#9679; <a href="tel:5623155105">(562) 315-5105</a></div>
+      <div class="footer-contact-line" style="margin-top:10px;"><a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" style="color:var(--terra);font-weight:500;">Order on DoorDash &rarr;</a></div>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <ul class="footer-links">
+        <li><a href="#menu">Our Menu</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#catering">Catering</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Order</div>
+      <ul class="footer-links">
+        <li><a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank">DoorDash Delivery</a></li>
+        <li><a href="#catering">Catering Request</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Hours</div>
+      <div class="hours-grid">
+        <div class="hours-row">Mon &ndash; Fri<span>8am &ndash; 7pm</span></div>
+        <div class="hours-row">Sat &ndash; Sun<span>8am &ndash; 8pm</span></div>
+      </div>
+      <div style="margin-top:14px;font-size:0.75rem;color:rgba(253,246,236,0.25);">*Hours subject to change. Call to confirm.</div>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <div>&copy; 2025 Amigas Cafe. Made with <span class="footer-heart">&#9829;</span> in Whittier, CA.</div>
+    <div>16220 Whittier Blvd &middot; Est. 2025</div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    burger.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+
+  function alignHoursPill() {
+    const badge = document.querySelector('.hero-badge');
+    const pill = document.getElementById('hoursPill');
+    if (badge && pill) {
+      const badgeTop = badge.getBoundingClientRect().top + window.scrollY;
+      const pillH = pill.offsetHeight;
+      const badgeH = badge.offsetHeight;
+      pill.style.top = (badgeTop + (badgeH / 2) - (pillH / 2) - 60) + 'px';
+    }
+  }
+  function alignStatCards() {
+    const pill = document.getElementById('hoursPill');
+    const stats = document.querySelector('.hero-stats');
+    if (pill && stats) {
+      const pillTop = pill.getBoundingClientRect().top + window.scrollY;
+      const pillLeft = pill.getBoundingClientRect().left;
+      const pillRight = pill.getBoundingClientRect().right;
+      const pillW = pill.offsetWidth;
+      const pillH = pill.offsetHeight;
+      const statsW = stats.offsetWidth;
+      // Center stats under pill
+      const pillCenterX = window.innerWidth - pillLeft - pillW / 2;
+      stats.style.top = (pillTop + pillH + 40) + 'px';
+      stats.style.right = (pillCenterX - statsW / 2) + 'px';
+    }
+  }
+  window.addEventListener('load', () => { alignHoursPill(); alignStatCards(); });
+  window.addEventListener('resize', () => { alignHoursPill(); alignStatCards(); });
+
+    document.getElementById('heroBg').style.backgroundImage = "linear-gradient(to right, #C4622D, #1E3A8A, #F2B84B)";
+
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  // Press ripple on click
+  document.addEventListener('mousedown', e => {
+    const ripple = document.createElement('div');
+    ripple.className = 'press-ripple';
+    ripple.style.left = e.clientX + 'px';
+    ripple.style.top = e.clientY + 'px';
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 400);
+  });
+
+  function showTab(tab, btn) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+    document.querySelectorAll('#tab-' + tab + ' .fade-in-up').forEach((el, i) => {
+      el.classList.remove('visible');
+      setTimeout(() => el.classList.add('visible'), i * 60);
+    });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+  function handleFormSubmit(btn) {
+    const form = btn.closest('.catering-form-wrap');
+    const inputs = form.querySelectorAll('input[type="text"]');
+    const name = (inputs[0] ? inputs[0].value : '') + ' ' + (inputs[1] ? inputs[1].value : '');
+    const email = form.querySelector('input[type="email"]') ? form.querySelector('input[type="email"]').value : '';
+    const phone = form.querySelector('input[type="tel"]') ? form.querySelector('input[type="tel"]').value : '';
+    const date = form.querySelector('input[type="date"]') ? form.querySelector('input[type="date"]').value : '';
+    const selects = form.querySelectorAll('select');
+    const guests = selects[0] ? selects[0].value : '';
+    const eventType = selects[1] ? selects[1].value : '';
+    const notes = form.querySelector('textarea') ? form.querySelector('textarea').value : '';
+
+    const subject = encodeURIComponent('Catering Request from ' + name.trim());
+    const body = encodeURIComponent(
+      'Name: ' + name.trim() + '\n' +
+      'Email: ' + email + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Event Date: ' + date + '\n' +
+      'Guest Count: ' + guests + '\n' +
+      'Event Type: ' + eventType + '\n\n' +
+      'Notes:\n' + notes
+    );
+
+    window.location.href = 'mailto:ajesqueda0@gmail.com?subject=' + subject + '&body=' + body;
+
+    setTimeout(() => {
+      btn.textContent = 'Request Sent \u2014 We\'ll be in touch within 24 hours.';
+      btn.style.background = '#2B4DAA';
+      btn.disabled = true;
+    }, 300);
+  }
+</script>
+</body>
+</html>
