@@ -521,9 +521,9 @@
   <div id="hoursPill" style="position:absolute;top:0;right:5%;z-index:2;animation:fadeLeft 0.9s 0.1s ease both;">
     <div style="background:rgba(253,246,236,0.07);border:1px solid rgba(253,246,236,0.18);backdrop-filter:blur(10px);border-radius:50px;padding:8px 22px;display:flex;align-items:center;gap:14px;white-space:nowrap;">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(242,184,75,0.9)"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-      <span style="font-size:0.78rem;color:rgba(253,246,236,0.6);letter-spacing:0.5px;">Mon&ndash;Fri 8am&ndash;7pm</span>
+      <span style="font-size:0.78rem;color:rgba(253,246,236,0.6);letter-spacing:0.5px;">Sun&ndash;Thu 8am&ndash;7pm</span>
       <span style="width:1px;height:16px;background:rgba(253,246,236,0.2);display:inline-block;"></span>
-      <span style="font-size:0.78rem;color:rgba(253,246,236,0.6);letter-spacing:0.5px;">Sat&ndash;Sun 8am&ndash;8pm</span>
+      <span style="font-size:0.78rem;color:rgba(253,246,236,0.6);letter-spacing:0.5px;">Fri&ndash;Sat 8am&ndash;8pm</span>
     </div>
   </div>
   <div class="hero-stats">
@@ -976,7 +976,7 @@
       <div class="about-info fade-in-up" style="grid-column:1/-1;justify-items:center;text-align:center;">
         <div class="info-item" style="justify-content:center;grid-column:1/-1;">
           <div class="info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
-          <div><div class="info-label">Hours</div><div class="info-val">Mon&ndash;Fri: 8am&ndash;7pm &nbsp;&middot;&nbsp; Sat&ndash;Sun: 8am&ndash;8pm</div></div>
+          <div><div class="info-label">Hours</div><div class="info-val">Sun&ndash;Thu: 8am&ndash;7pm &nbsp;&middot;&nbsp; Fri&ndash;Sat: 8am&ndash;8pm</div></div>
         </div>
         <div class="info-item">
           <div class="info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
@@ -1116,8 +1116,8 @@
     <div>
       <div class="footer-col-title">Hours</div>
       <div class="hours-grid">
-        <div class="hours-row">Mon &ndash; Fri<span>8am &ndash; 7pm</span></div>
-        <div class="hours-row">Sat &ndash; Sun<span>8am &ndash; 8pm</span></div>
+        <div class="hours-row">Sun &ndash; Thu<span>8am &ndash; 7pm</span></div>
+        <div class="hours-row">Fri &ndash; Sat<span>8am &ndash; 8pm</span></div>
       </div>
       <div style="margin-top:14px;font-size:0.75rem;color:rgba(253,246,236,0.25);">*Hours subject to change. Call to confirm.</div>
     </div>
@@ -1224,7 +1224,7 @@
       'Notes:\n' + notes
     );
 
-    window.location.href = 'mailto:ajesqueda0@gmail.com?subject=' + subject + '&body=' + body;
+    window.location.href = 'mailto:amigascafewhittier@gmail.com?subject=' + subject + '&body=' + body;
 
     setTimeout(() => {
       btn.textContent = 'Request Sent \u2014 We\'ll be in touch within 24 hours.';
