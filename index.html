@@ -81,6 +81,8 @@
   .nav-left { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
   .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--terra); letter-spacing: -0.5px; white-space: nowrap; }
   .nav-logo span { color: var(--terra); }
+  .nav-logo-img { height: 52px; width: auto; transition: opacity 0.2s ease; }
+  .nav-logo-img:hover { opacity: 0.85; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--bark); text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase; position: relative; padding-bottom: 3px; }
   .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--terra); border-radius: 2px; transition: width 0.25s ease; }
@@ -106,8 +108,7 @@
 
   /* ── HERO ── */
   #hero { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; padding-top: 80px; }
-  /* hero-bg.jpg: save at 1920×1080px, JPEG 70% quality (~150-200KB) */
-  .hero-bg-img { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(6px) brightness(0.35) saturate(0.8); transform: scale(1.08); }
+  .hero-bg-img { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(6px) brightness(0.32) saturate(0.75); transform: scale(1.08); }
   .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(28,16,8,0.85) 0%, rgba(61,32,16,0.65) 50%, rgba(28,16,8,0.75) 100%), radial-gradient(ellipse 50% 70% at 70% 50%, rgba(196,98,45,0.3) 0%, transparent 65%); }
   .hero-content { position: relative; z-index: 2; padding: 0 5%; max-width: 680px; animation: fadeUp 0.9s ease both; }
   .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(196,98,45,0.2); border: 1px solid rgba(232,131,74,0.5); color: var(--clay); font-size: 0.72rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 50px; margin-bottom: 1.5rem; animation: fadeUp 0.9s 0.1s ease both; }
@@ -133,9 +134,11 @@
   /* ── SECTION COMMON ── */
   section { padding: 100px 5%; }
   .section-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--terra); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 10px; }
-  .section-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--terra); display: inline-block; }
+  .section-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--terra); display: inline-block; flex-shrink: 0; }
   .section-eyebrow.light { color: var(--gold); }
   .section-eyebrow.light::before { background: var(--gold); }
+  .eyebrow-mark { height: 28px; width: auto; object-fit: contain; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+  .section-eyebrow.light .eyebrow-mark { filter: brightness(0) saturate(100%) invert(78%) sepia(60%) saturate(500%) hue-rotate(345deg) brightness(105%); }
   .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; color: var(--dark); margin-bottom: 0.75rem; }
   .section-subtitle { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 300; color: #6B5B4E; line-height: 1.7; max-width: 500px; }
   .section-title.light { color: var(--cream); }
@@ -365,6 +368,7 @@
     nav { padding: 10px 4%; padding-left: max(4%, env(safe-area-inset-left)); padding-right: max(4%, env(safe-area-inset-right)); gap: 0.5rem; }
     .nav-left { gap: 8px; }
     .nav-logo { font-size: 1.1rem; }
+    .nav-logo-img { height: 38px; }
     .nav-cta { padding: 8px 12px !important; font-size: 0.72rem !important; }
     .hamburger { display: flex; }
 
@@ -478,7 +482,9 @@
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
-    <div class="nav-logo">Amigas<span> Cafe</span></div>
+    <a href="#hero" style="display:flex;align-items:center;text-decoration:none;">
+      <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/logo.png" alt="Amigas Cafe" class="nav-logo-img" style="height:52px;width:auto;object-fit:contain;">
+    </a>
   </div>
   <ul class="nav-links">
     <li><a href="#menu">Our Menu</a></li>
@@ -580,7 +586,7 @@
 <!-- MENU -->
 <section id="menu">
   <div class="menu-header">
-    <div class="section-eyebrow"><span class="deco-symbol sm">&#10022;</span> Our Menu</div>
+    <div class="section-eyebrow"><img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/icon-mark.png" alt="" class="eyebrow-mark"> Our Menu</div>
     <h2 class="section-title">Made Fresh,<br>Every Morning</h2>
     <p class="section-subtitle">From classic Mexican breakfast plates to hearty entr&eacute;es &mdash; everything made with homemade love in Whittier.</p>
   </div>
@@ -930,7 +936,7 @@
 <section id="reviews">
   <div class="reviews-header">
     <div>
-      <div class="section-eyebrow light"><span class="deco-symbol sm" style="background:linear-gradient(135deg,var(--gold),var(--clay))">&#9733;</span> Customer Love</div>
+      <div class="section-eyebrow light"><img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/icon-mark.png" alt="" class="eyebrow-mark"> Customer Love</div>
       <h2 class="section-title light">What the Neighborhood Says</h2>
       <p class="section-subtitle light">Real reviews from real locals who keep coming back.</p>
     </div>
@@ -963,7 +969,7 @@
       </div>
     </div>
     <div>
-      <div class="section-eyebrow"><span class="deco-symbol sm">&#10022;</span> Our Story</div>
+      <div class="section-eyebrow"><img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/icon-mark.png" alt="" class="eyebrow-mark"> Our Story</div>
       <h2 class="section-title">More Than a Caf&eacute; &mdash;<br>It's Community</h2>
       <p class="section-subtitle">Born from a love of authentic Mexican cooking and a belief that neighborhood restaurants should feel like home.</p>
       <p style="font-size:0.92rem;color:#5A4A3A;line-height:1.8;margin-top:1.5rem;">Nestled inside Whittier Plaza Offices on Whittier Blvd, we opened our doors to bring something Whittier had been missing: a warm, locally-owned spot where the food tastes homemade, the service is genuine, and every customer leaves feeling welcome.</p>
@@ -1001,7 +1007,7 @@
   <div class="catering-morph"></div>
   <div class="catering-grid">
     <div>
-      <div class="section-eyebrow light"><span class="deco-symbol sm" style="background:linear-gradient(135deg,var(--gold),var(--clay))">&#10022;</span> Catering</div>
+      <div class="section-eyebrow light"><img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/icon-mark.png" alt="" class="eyebrow-mark"> Catering</div>
       <h2 class="section-title light">Let's Make Your<br>Event Unforgettable</h2>
       <p class="catering-desc">From intimate family breakfasts to large corporate gatherings &mdash; we bring the authentic flavors and warmth of Amigas Cafe to you.</p>
       <div class="catering-packages">
@@ -1091,7 +1097,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <span class="footer-logo-text">Amigas<span> Cafe</span></span>
+      <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/logo.png" alt="Amigas Cafe" style="height:110px;width:auto;object-fit:contain;margin-bottom:1rem;display:block;filter:brightness(1.05);">
       <p class="footer-tagline">"Where Every Meal Tastes Like It Was Made From Home."</p>
       <div class="footer-contact-line">&#9679; <a href="https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603" target="_blank" style="color:rgba(253,246,236,0.55);text-decoration:none;">16220 Whittier Blvd, Whittier, CA 90603</a></div>
       <div class="footer-contact-line">&#9679; <a href="tel:5623155105">(562) 315-5105</a></div>
@@ -1167,7 +1173,7 @@
   window.addEventListener('load', () => { alignHoursPill(); alignStatCards(); });
   window.addEventListener('resize', () => { alignHoursPill(); alignStatCards(); });
 
-    document.getElementById('heroBg').style.backgroundImage = "linear-gradient(to right, #C4622D, #1E3A8A, #F2B84B)";
+    document.getElementById('heroBg').style.backgroundImage = "url('https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/hero-bg.jpg')";
 
   const cursor = document.getElementById('cursor');
   document.addEventListener('mousemove', e => {
