@@ -1280,17 +1280,30 @@
     btn.textContent = 'Sending...';
     btn.disabled = true;
     try {
-      const res = await fetch('https://formspree.io/f/xlgpqpqd', {
+      const res = await fetch('https://formspree.io/f/mwvrgwlr', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: firstName + ' ' + lastName, email, phone, event_date: date, guests, event_type: eventType, message: notes })
+        body: JSON.stringify({
+          name: firstName + ' ' + lastName,
+          email: email,
+          phone: phone,
+          event_date: date,
+          guests: guests,
+          event_type: eventType,
+          message: notes
+        })
       });
+      const data = await res.json();
       if (res.ok) {
         btn.textContent = "Request Sent — We'll be in touch within 24 hours!";
         btn.style.background = '#4A8B4A';
-        form.querySelectorAll('input, textarea').forEach(el => el.value = '');
+        form.querySelectorAll('input:not([type=submit]), textarea, select').forEach(el => {
+          if (el.tagName === 'SELECT') el.selectedIndex = 0;
+          else el.value = '';
+        });
       } else {
-        btn.textContent = 'Something went wrong — please try again.';
+        const msg = data?.errors?.[0]?.message || 'Submission failed';
+        btn.textContent = 'Error: ' + msg + ' — please try again.';
         btn.style.background = '#B04A1A';
         btn.disabled = false;
       }
