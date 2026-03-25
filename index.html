@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2S28GJ3D6X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2S28GJ3D6X');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Amigas Cafe — Whittier's Favorite Mexican Breakfast</title>
@@ -1264,54 +1272,36 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
-  async function handleFormSubmit(btn) {
+  function handleFormSubmit(btn) {
     const form = btn.closest('.catering-form-wrap');
-    const inputs  = form.querySelectorAll('input[type="text"]');
-    const firstName = inputs[0] ? inputs[0].value.trim() : '';
-    const lastName  = inputs[1] ? inputs[1].value.trim() : '';
-    const email     = form.querySelector('input[type="email"]')?.value.trim() || '';
-    const phone     = form.querySelector('input[type="tel"]')?.value.trim()   || '';
-    const date      = form.querySelector('input[type="date"]')?.value         || '';
-    const selects   = form.querySelectorAll('select');
-    const guests    = selects[0]?.value || '';
-    const eventType = selects[1]?.value || '';
-    const notes     = form.querySelector('textarea')?.value.trim()            || '';
-    if (!firstName || !email) { alert('Please fill in your first name and email address.'); return; }
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-    try {
-      const res = await fetch('https://formspree.io/f/mwvrgwlr', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: firstName + ' ' + lastName,
-          email: email,
-          phone: phone,
-          event_date: date,
-          guests: guests,
-          event_type: eventType,
-          message: notes
-        })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        btn.textContent = "Request Sent — We'll be in touch within 24 hours!";
-        btn.style.background = '#4A8B4A';
-        form.querySelectorAll('input:not([type=submit]), textarea, select').forEach(el => {
-          if (el.tagName === 'SELECT') el.selectedIndex = 0;
-          else el.value = '';
-        });
-      } else {
-        const msg = data?.errors?.[0]?.message || 'Submission failed';
-        btn.textContent = 'Error: ' + msg + ' — please try again.';
-        btn.style.background = '#B04A1A';
-        btn.disabled = false;
-      }
-    } catch(e) {
-      btn.textContent = 'Network error — please try again.';
-      btn.style.background = '#B04A1A';
-      btn.disabled = false;
-    }
+    const inputs = form.querySelectorAll('input[type="text"]');
+    const name = (inputs[0] ? inputs[0].value : '') + ' ' + (inputs[1] ? inputs[1].value : '');
+    const email = form.querySelector('input[type="email"]') ? form.querySelector('input[type="email"]').value : '';
+    const phone = form.querySelector('input[type="tel"]') ? form.querySelector('input[type="tel"]').value : '';
+    const date = form.querySelector('input[type="date"]') ? form.querySelector('input[type="date"]').value : '';
+    const selects = form.querySelectorAll('select');
+    const guests = selects[0] ? selects[0].value : '';
+    const eventType = selects[1] ? selects[1].value : '';
+    const notes = form.querySelector('textarea') ? form.querySelector('textarea').value : '';
+
+    const subject = encodeURIComponent('Catering Request from ' + name.trim());
+    const body = encodeURIComponent(
+      'Name: ' + name.trim() + '\n' +
+      'Email: ' + email + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Event Date: ' + date + '\n' +
+      'Guest Count: ' + guests + '\n' +
+      'Event Type: ' + eventType + '\n\n' +
+      'Notes:\n' + notes
+    );
+
+    window.location.href = 'mailto:amigascafewhittier@gmail.com?subject=' + subject + '&body=' + body;
+
+    setTimeout(() => {
+      btn.textContent = 'Request Sent \u2014 We\'ll be in touch within 24 hours.';
+      btn.style.background = '#2B4DAA';
+      btn.disabled = true;
+    }, 300);
   }
 </script>
 </body>
