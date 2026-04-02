@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- ═══════════════════════════════════════════════════════
+     SECURITY: Content Security Policy
+     Restricts scripts/styles to trusted sources only.
+     Blocks XSS attacks from injected third-party scripts.
+═══════════════════════════════════════════════════════ -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://www.google-analytics.com https://analytics.google.com; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self';">
+<!-- SECURITY: Prevent clickjacking / iframe embedding -->
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<!-- SECURITY: Prevent MIME-type sniffing -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<!-- SECURITY: Control referrer info sent to third parties -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- SECURITY: Disable browser features not needed -->
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2S28GJ3D6X"></script>
 <script>
@@ -9,9 +24,179 @@
   gtag('js', new Date());
   gtag('config', 'G-2S28GJ3D6X');
 </script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Amigas Cafe — Whittier's Favorite Mexican Breakfast</title>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEO: Primary Meta Tags
+     Title and description are what show up in Google results.
+     Think of these as the "storefront sign" on search results.
+═══════════════════════════════════════════════════════ -->
+<title>Amigas Cafe | Mexican Breakfast, Lunch & Catering in Whittier, CA</title>
+<meta name="description" content="Amigas Cafe in Whittier, CA — authentic Mexican breakfast, lunch & dinner on Whittier Blvd. Chilaquiles, enchiladas, burritos, catering & more. Open daily. Call (562) 315-5105.">
+<meta name="keywords" content="Mexican restaurant Whittier CA, Mexican breakfast Whittier, chilaquiles Whittier, Amigas Cafe Whittier, Mexican food Whittier Blvd, brunch Whittier, catering Whittier CA, enchiladas Whittier">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Amigas Cafe">
+<link rel="canonical" href="https://amigascafewhittier.com/">
+
+<!-- ═══════════════════════════════════════════════════════
+     SEO: Open Graph (Social Sharing)
+     Controls how the page looks when shared on
+     iMessage, Facebook, Instagram, WhatsApp, etc.
+     Think of it as the "cover photo" for your link preview.
+═══════════════════════════════════════════════════════ -->
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Amigas Cafe | Authentic Mexican Breakfast in Whittier, CA">
+<meta property="og:description" content="Your neighborhood spot for homemade Mexican food. Chilaquiles, enchiladas, catering & more — on Whittier Blvd. Open daily 8am–8pm.">
+<meta property="og:image" content="https://amigascafewhittier.com/hero-bg.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://amigascafewhittier.com/">
+<meta property="og:site_name" content="Amigas Cafe">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Amigas Cafe | Mexican Breakfast in Whittier, CA">
+<meta name="twitter:description" content="Authentic Mexican food on Whittier Blvd. Chilaquiles, enchiladas, catering. Open daily. (562) 315-5105.">
+<meta name="twitter:image" content="https://amigascafewhittier.com/hero-bg.jpg">
+
+<!-- ═══════════════════════════════════════════════════════
+     SEO: LocalBusiness JSON-LD Schema Markup
+     This is the "business card you hand directly to Google."
+     It tells Google, ChatGPT, Perplexity, and other AI search
+     engines exactly who you are, where you are, what you serve,
+     and when you're open — in a language machines understand
+     instantly. This is the #1 LLM/AI search optimization signal.
+═══════════════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Amigas Cafe",
+  "alternateName": "Amigas Cafe Whittier",
+  "url": "https://amigascafewhittier.com",
+  "description": "Authentic Mexican breakfast, lunch and dinner restaurant in Whittier, CA. Serving chilaquiles, enchiladas, burritos, tacos, and catering for events. Family-owned neighborhood cafe on Whittier Blvd.",
+  "telephone": "+15623155105",
+  "email": "amigascafewhittier@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "16220 Whittier Blvd",
+    "addressLocality": "Whittier",
+    "addressRegion": "CA",
+    "postalCode": "90603",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 33.9678,
+    "longitude": -118.0091
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],
+      "opens": "08:00",
+      "closes": "19:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Friday","Saturday"],
+      "opens": "08:00",
+      "closes": "20:00"
+    }
+  ],
+  "servesCuisine": ["Mexican", "American", "Breakfast", "Brunch", "Latin American"],
+  "priceRange": "$$",
+  "currenciesAccepted": "USD",
+  "paymentAccepted": "Cash, Credit Card",
+  "menu": "https://amigascafewhittier.com/#menu",
+  "hasMap": "https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603",
+  "image": [
+    "https://amigascafewhittier.com/hero-bg.jpg",
+    "https://amigascafewhittier.com/IMG_3909.webp",
+    "https://amigascafewhittier.com/IMG_3906.webp"
+  ],
+  "logo": "https://amigascafewhittier.com/logo.png",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "99",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "sameAs": [
+    "https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/"
+  ],
+  "areaServed": {
+    "@type": "City",
+    "name": "Whittier",
+    "addressRegion": "CA"
+  },
+  "knowsAbout": [
+    "Chilaquiles",
+    "Enchiladas",
+    "Mexican Breakfast",
+    "Breakfast Burritos",
+    "Catering",
+    "Brunch",
+    "Tacos",
+    "Birria",
+    "Mole",
+    "Huevos Rancheros"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Amigas Cafe Menu",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "FoodEstablishmentReservation",
+          "name": "Catering Services",
+          "description": "Catering for corporate events, birthdays, quinceañeras, weddings and community events in the Whittier area."
+        }
+      }
+    ]
+  },
+  "foundingDate": "2025",
+  "slogan": "Breakfast como en casa — Where every meal tastes like it was made from home.",
+  "keywords": "Mexican restaurant Whittier, breakfast Whittier CA, chilaquiles Whittier, Mexican food near me, catering Whittier"
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     SEO: BreadcrumbList Schema
+     Tells Google the site structure for rich result display.
+═══════════════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://amigascafewhittier.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Menu",
+      "item": "https://amigascafewhittier.com/#menu"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Catering",
+      "item": "https://amigascafewhittier.com/#catering"
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Fraunces:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -511,13 +696,13 @@
 </div>
 
 <!-- NAV -->
-<nav>
+<nav role="navigation" aria-label="Main navigation">
   <div class="nav-left">
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
     <a href="#hero" style="display:flex;align-items:center;text-decoration:none;">
-      <img src="logo.png" alt="Amigas Cafe" class="nav-logo-img" style="height:52px;width:auto;object-fit:contain;">
+      <img src="logo.png" alt="Amigas Cafe — Mexican Restaurant Whittier CA" class="nav-logo-img" style="height:52px;width:auto;object-fit:contain;">
     </a>
   </div>
   <ul class="nav-links">
@@ -526,7 +711,7 @@
     <li><a href="#about">Our Story</a></li>
     <li><a href="#catering">Catering</a></li>
   </ul>
-  <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" class="nav-cta">Order Now</a>
+  <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" rel="noopener noreferrer" class="nav-cta">Order Now</a>
 </nav>
 
 <!-- MOBILE MENU DRAWER -->
@@ -535,11 +720,12 @@
   <a href="#reviews" onclick="toggleMenu()">Reviews</a>
   <a href="#about" onclick="toggleMenu()">Our Story</a>
   <a href="#catering" onclick="toggleMenu()">Catering</a>
-  <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" class="mobile-cta" onclick="toggleMenu()">Order Now</a>
+  <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" rel="noopener noreferrer" class="mobile-cta" onclick="toggleMenu()">Order Now</a>
 </div>
 
 <!-- HERO -->
-<section id="hero">
+<main id="main-content">
+<section id="hero" aria-label="Amigas Cafe — Mexican Breakfast and Lunch in Whittier, CA">
   <div class="hero-bg-img" id="heroBg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -554,7 +740,7 @@
     </div>
     <p class="hero-sub">Authentic Mexican Cooking Made With Heart. Chilaquiles, Enchiladas, Caf&eacute; De Olla &mdash; Your Neighborhood Spot In Whittier.</p>
     <div class="hero-btns">
-      <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" class="btn-primary">Order on DoorDash</a>
+      <a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" rel="noopener noreferrer" class="btn-primary">Order on DoorDash</a>
       <a href="#menu" class="btn-secondary">View Menu</a>
     </div>
   </div>
@@ -618,7 +804,7 @@
 </div>
 
 <!-- MENU -->
-<section id="menu">
+<section id="menu" aria-label="Amigas Cafe Menu — Whittier CA">
   <div class="menu-header">
     <div class="section-eyebrow"><img src="icon-mark.png" alt="" class="eyebrow-mark"> Our Menu</div>
     <h2 class="section-title">Made Fresh,<br>Every Morning</h2>
@@ -1024,11 +1210,11 @@
 </div>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" aria-label="About Amigas Cafe Whittier">
   <div class="about-layout">
     <div class="about-img-stack fade-in-up">
-      <div class="about-card-big" style="background:linear-gradient(135deg,#C4622D 0%,#E8834A 100%);"><img src="IMG_3909.webp" alt="Amigas Cafe grand opening team" width="800" height="600" style="width:100%;height:100%;object-fit:cover;border-radius:24px;" loading="lazy" decoding="async"></div>
-      <div class="about-card-small" style="background:linear-gradient(135deg,#1E3A8A 0%,#2B4DAA 100%);"><img src="IMG_3906.webp" alt="Amigas Cafe ribbon cutting" width="600" height="800" style="width:100%;height:100%;object-fit:cover;border-radius:20px;" loading="lazy" decoding="async"></div>
+      <div class="about-card-big" style="background:linear-gradient(135deg,#C4622D 0%,#E8834A 100%);"><img src="IMG_3909.webp" alt="Amigas Cafe Whittier team at grand opening on Whittier Blvd" width="800" height="600" style="width:100%;height:100%;object-fit:cover;border-radius:24px;" loading="lazy" decoding="async"></div>
+      <div class="about-card-small" style="background:linear-gradient(135deg,#1E3A8A 0%,#2B4DAA 100%);"><img src="IMG_3906.webp" alt="Amigas Cafe Whittier ribbon cutting ceremony" width="600" height="800" style="width:100%;height:100%;object-fit:cover;border-radius:20px;" loading="lazy" decoding="async"></div>
       <div class="about-quote-card">
         <p class="about-quote-text">"Where every guest feels like family."</p>
         <div class="about-quote-attr">&mdash; The Amigas Team</div>
@@ -1052,7 +1238,7 @@
         </div>
         <div class="info-item">
           <div class="info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-          <div><div class="info-label">Location</div><div class="info-val"><a href="https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603" target="_blank" style="color:var(--cobalt-light);text-decoration:none;">16220 Whittier Blvd, CA 90603</a></div></div>
+          <div><div class="info-label">Location</div><div class="info-val"><a href="https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603" target="_blank" rel="noopener noreferrer" style="color:var(--cobalt-light);text-decoration:none;">16220 Whittier Blvd, CA 90603</a></div></div>
         </div>
         <div class="info-item">
           <div class="info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
@@ -1069,7 +1255,7 @@
 </div>
 
 <!-- CATERING -->
-<section id="catering">
+<section id="catering" aria-label="Catering Services — Amigas Cafe Whittier">
   <div class="catering-morph"></div>
   <div class="catering-grid">
     <div>
@@ -1138,17 +1324,17 @@
       <div class="form-title">Get a Free Quote</div>
       <p class="form-sub">We'll respond within 24 hours to discuss your event details.</p>
       <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" placeholder="Maria"></div>
-        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Garcia"></div>
+        <div class="form-group"><label for="f-first">First Name</label><input id="f-first" type="text" placeholder="Maria" maxlength="50" autocomplete="given-name"></div>
+        <div class="form-group"><label for="f-last">Last Name</label><input id="f-last" type="text" placeholder="Garcia" maxlength="50" autocomplete="family-name"></div>
       </div>
-      <div class="form-group"><label>Email Address</label><input type="email" placeholder="maria@email.com"></div>
-      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(562) 555-0000"></div>
+      <div class="form-group"><label for="f-email">Email Address</label><input id="f-email" type="email" placeholder="maria@email.com" maxlength="100" autocomplete="email"></div>
+      <div class="form-group"><label for="f-phone">Phone Number</label><input id="f-phone" type="tel" placeholder="(562) 555-0000" maxlength="20" pattern="[\d\s\(\)\-\+]+" autocomplete="tel"></div>
       <div class="form-row">
-        <div class="form-group"><label>Event Date</label><input type="date"></div>
-        <div class="form-group"><label>Guest Count</label><select><option>10&ndash;25 guests</option><option>25&ndash;50 guests</option><option>50&ndash;100 guests</option><option>100+ guests</option></select></div>
+        <div class="form-group"><label for="f-date">Event Date</label><input id="f-date" type="date"></div>
+        <div class="form-group"><label for="f-guests">Guest Count</label><select id="f-guests"><option>10&ndash;25 guests</option><option>25&ndash;50 guests</option><option>50&ndash;100 guests</option><option>100+ guests</option></select></div>
       </div>
-      <div class="form-group"><label>Event Type</label><select><option>Corporate Breakfast / Lunch</option><option>Birthday Party</option><option>Quincea&ntilde;era</option><option>Wedding / Anniversary</option><option>School / Community Event</option><option>Other</option></select></div>
-      <div class="form-group"><label>Tell us about your event</label><textarea rows="3" placeholder="Any special requests, dietary needs, or details..."></textarea></div>
+      <div class="form-group"><label for="f-type">Event Type</label><select id="f-type"><option>Corporate Breakfast / Lunch</option><option>Birthday Party</option><option>Quincea&ntilde;era</option><option>Wedding / Anniversary</option><option>School / Community Event</option><option>Other</option></select></div>
+      <div class="form-group"><label for="f-notes">Tell us about your event</label><textarea id="f-notes" rows="3" placeholder="Any special requests, dietary needs, or details..." maxlength="1000"></textarea></div>
       <button class="form-submit" onclick="handleFormSubmit(this)">Send Catering Request</button>
     </div>
   </div>
@@ -1159,15 +1345,22 @@
   <div style="height:80px;background-image:url('dividersect.webp');background-repeat:repeat-x;background-size:auto 80px;background-position:0 center;animation:splitterScroll 30s linear infinite;"></div>
 </div>
 
+</main><!-- /main -->
+
 <!-- FOOTER -->
-<footer>
+<!-- SEO: Footer contains NAP (Name Address Phone) block matching GBP exactly.
+     Wrapped in <address> tag so Google/AI crawlers recognize this as contact info. -->
+<footer role="contentinfo">
   <div class="footer-top">
     <div>
-      <img src="logo.png" alt="Amigas Cafe" style="height:110px;width:auto;object-fit:contain;margin-bottom:1rem;display:block;filter:brightness(1.05);">
+      <img src="logo.png" alt="Amigas Cafe — Mexican Restaurant Whittier CA" style="height:110px;width:auto;object-fit:contain;margin-bottom:1rem;display:block;filter:brightness(1.05);">
       <p class="footer-tagline">"Where Every Meal Tastes Like It Was Made From Home."</p>
-      <div class="footer-contact-line">&#9679; <a href="https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603" target="_blank" style="color:rgba(253,246,236,0.55);text-decoration:none;">16220 Whittier Blvd, Whittier, CA 90603</a></div>
-      <div class="footer-contact-line">&#9679; <a href="tel:5623155105">(562) 315-5105</a></div>
-      <div class="footer-contact-line" style="margin-top:10px;"><a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" style="color:var(--terra);font-weight:500;">Order on DoorDash &rarr;</a></div>
+      <!-- NAP Block: must match Google Business Profile exactly -->
+      <address style="font-style:normal;">
+        <div class="footer-contact-line">&#9679; <a href="https://maps.google.com/?q=16220+Whittier+Blvd,+Whittier,+CA+90603" target="_blank" rel="noopener noreferrer" style="color:rgba(253,246,236,0.55);text-decoration:none;">16220 Whittier Blvd, Whittier, CA 90603</a></div>
+        <div class="footer-contact-line">&#9679; <a href="tel:5623155105">(562) 315-5105</a></div>
+      </address>
+      <div class="footer-contact-line" style="margin-top:10px;"><a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" rel="noopener noreferrer" style="color:var(--terra);font-weight:500;">Order on DoorDash &rarr;</a></div>
     </div>
     <div>
       <div class="footer-col-title">Explore</div>
@@ -1181,7 +1374,7 @@
     <div>
       <div class="footer-col-title">Order</div>
       <ul class="footer-links">
-        <li><a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank">DoorDash Delivery</a></li>
+        <li><a href="https://www.doordash.com/store/amigas-cafe-whittier-35873767/78874766/" target="_blank" rel="noopener noreferrer">DoorDash Delivery</a></li>
         <li><a href="#catering">Catering Request</a></li>
       </ul>
     </div>
@@ -1196,7 +1389,7 @@
   </div>
   <hr class="footer-divider">
   <div class="footer-bottom">
-    <div>&copy; 2025 Amigas Cafe. Made with <span class="footer-heart">&#9829;</span> in Whittier, CA.</div>
+    <div>&copy; 2026 Amigas Cafe. Made with <span class="footer-heart">&#9829;</span> in Whittier, CA.</div>
     <div>16220 Whittier Blvd &middot; Est. 2025</div>
   </div>
 </footer>
@@ -1272,21 +1465,58 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
+  // ── SECURITY: Input sanitization helper ──
+  // Strips HTML tags and trims whitespace before any data
+  // leaves the page. Like a bouncer checking IDs at the door.
+  function sanitizeInput(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;')
+      .trim()
+      .slice(0, 1000); // hard cap — nothing over 1000 chars passes
+  }
+
   function handleFormSubmit(btn) {
     const form = btn.closest('.catering-form-wrap');
-    const inputs = form.querySelectorAll('input[type="text"]');
-    const name = (inputs[0] ? inputs[0].value : '') + ' ' + (inputs[1] ? inputs[1].value : '');
-    const email = form.querySelector('input[type="email"]') ? form.querySelector('input[type="email"]').value : '';
-    const phone = form.querySelector('input[type="tel"]') ? form.querySelector('input[type="tel"]').value : '';
-    const date = form.querySelector('input[type="date"]') ? form.querySelector('input[type="date"]').value : '';
-    const selects = form.querySelectorAll('select');
-    const guests = selects[0] ? selects[0].value : '';
-    const eventType = selects[1] ? selects[1].value : '';
-    const notes = form.querySelector('textarea') ? form.querySelector('textarea').value : '';
 
-    const subject = encodeURIComponent('Catering Request from ' + name.trim());
+    // ── SECURITY: Collect via IDs (not positional index — avoids reading wrong fields) ──
+    const firstName = sanitizeInput(form.querySelector('#f-first') ? form.querySelector('#f-first').value : '');
+    const lastName  = sanitizeInput(form.querySelector('#f-last')  ? form.querySelector('#f-last').value  : '');
+    const email     = sanitizeInput(form.querySelector('#f-email') ? form.querySelector('#f-email').value : '');
+    const phone     = sanitizeInput(form.querySelector('#f-phone') ? form.querySelector('#f-phone').value : '');
+    const date      = sanitizeInput(form.querySelector('#f-date')  ? form.querySelector('#f-date').value  : '');
+    const guests    = sanitizeInput(form.querySelector('#f-guests')? form.querySelector('#f-guests').value: '');
+    const eventType = sanitizeInput(form.querySelector('#f-type')  ? form.querySelector('#f-type').value  : '');
+    const notes     = sanitizeInput(form.querySelector('#f-notes') ? form.querySelector('#f-notes').value : '');
+
+    const name = (firstName + ' ' + lastName).trim();
+
+    // ── SECURITY: Client-side validation ──
+    // Basic email format check
+    const emailPattern = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,}$/;
+    if (email && !emailPattern.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    // Phone: only digits, spaces, parens, dashes, plus
+    const phonePattern = /^[\d\s\(\)\-\+]{7,20}$/;
+    if (phone && !phonePattern.test(phone)) {
+      alert('Please enter a valid phone number.');
+      return;
+    }
+    // Require at minimum a name or email
+    if (!name && !email) {
+      alert('Please enter your name or email so we can reach you.');
+      return;
+    }
+
+    const subject = encodeURIComponent('Catering Request from ' + name);
     const body = encodeURIComponent(
-      'Name: ' + name.trim() + '\n' +
+      'Name: ' + name + '\n' +
       'Email: ' + email + '\n' +
       'Phone: ' + phone + '\n' +
       'Event Date: ' + date + '\n' +
